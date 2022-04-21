@@ -1,0 +1,23 @@
+.pagination-main{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.page-left{
+    
+}
+
+.page-right{
+
+}
+
+.page-input{
+    text-align: center;
+}
+
+.page-number{
+    font-size: larger;
+}

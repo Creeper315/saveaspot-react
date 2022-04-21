@@ -1,0 +1,33 @@
+.all-container{
+    width: 100vw;
+    height: 100vh;
+    display: grid;
+
+    grid-template-rows: 55px 1fr 50px;
+    grid-template-columns: 18% 1fr;
+
+    justify-items: stretch;
+    align-items: stretch;
+}
+
+
+.grid-bx-1{
+    border: 1px solid green;
+    grid-column: 1 / -1;
+    grid-row: 1;
+}
+.grid-bx-2 {
+    border: 1px solid red;
+    grid-column: 1;
+    grid-row: 2 / -1;
+}
+.grid-bx-3 {
+    border: 1px solid blue;
+    grid-column: 2;
+    grid-row: 2;
+}
+.grid-bx-4{
+    border: 1px dashed chocolate;
+    grid-column: 2;
+    grid-row: 3;
+}

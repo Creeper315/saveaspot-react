@@ -1,0 +1,19 @@
+.post-container{
+    position: relative;
+    width: 100%;
+    height: 100%;
+    background-color: aliceblue;
+    display: grid;
+    grid-template-columns: repeat(5, 20%);
+    grid-template-rows: repeat(3, 28%);
+    column-gap: 5px;
+    row-gap: 5px;
+}
+
+.one-post{
+    border: 2px solid rgb(129, 76, 7);
+    border-radius: 3px;
+    background-color: antiquewhite;
+    overflow: scroll;
+    cursor: pointer;
+}
