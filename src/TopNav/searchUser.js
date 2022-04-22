@@ -29,7 +29,7 @@ const SearchUser = ({ loadPosts, filterOption }) => {
     // window.aa = AllName;
     // window.ss = Selected;
     window.rr = filterOption;
-    console.log('SEARCH ft opts ', filterOption.current);
+    // console.log('SEARCH ft opts ', filterOption.current);
 
     useEffect(() => {}, []);
 

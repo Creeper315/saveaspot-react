@@ -26,7 +26,7 @@ const SearchLocation = ({ loadPosts, filterOption }) => {
     const [Selected, setSelected] = useState('');
     const [AllLocation, setAllLocation] = useState([]);
     // const [AllOptions, setAllOptions] = useState();
-    console.log('LOCATION ft opt ', filterOption.current);
+    // console.log('LOCATION ft opt ', filterOption.current);
     useEffect(() => {
         axios({
             method: 'GET',

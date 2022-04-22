@@ -86,7 +86,7 @@ const Posts2 = ({ PageData, setPageData, ThisUser, loadPosts }) => {
             return null;
         }
         let click = () => {
-            console.log('delete called');
+            // console.log('delete called');
             handleDelete(p.postid);
         };
         return <Button onClick={click}>Delete</Button>;
