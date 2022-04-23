@@ -16,6 +16,9 @@
 // // or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
 // reportWebVitals();
 
+// "proxy": "http://localhost:3001",
+// https://fun-together.herokuapp.com/login
+
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
