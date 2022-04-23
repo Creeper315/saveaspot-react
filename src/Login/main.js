@@ -11,10 +11,17 @@ const LoginMain = () => {
     const password = useRef();
 
     // const [, set] = useState();
+    function geturl() {
+        if (Title === 'Login') {
+            return 'https://fun-together.herokuapp.com/login';
+        }
+        return 'https://fun-together.herokuapp.com/register';
+    }
+
     function onsubmit() {
         axios({
             method: 'POST',
-            url: Title === 'Login' ? 'login' : 'register',
+            url: geturl(),
             data: {
                 username: name.current,
                 password: password.current,
