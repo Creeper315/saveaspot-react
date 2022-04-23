@@ -10,15 +10,24 @@ const LoginMain = () => {
     const name = useRef();
     const password = useRef();
 
+    // https://fun-together.herokuapp.com/
+
     // const [, set] = useState();
-    function geturl() {
+    function urlLocal() {
         if (Title === 'Login') {
             return 'https://fun-together.herokuapp.com/login';
         }
         return 'https://fun-together.herokuapp.com/register';
     }
 
-    function geturl2() {
+    function urlHeroku() {
+        if (Title === 'Login') {
+            return 'https://fun-together.herokuapp.com/login';
+        }
+        return 'https://fun-together.herokuapp.com/register';
+    }
+
+    function geturl() {
         if (Title === 'Login') {
             return 'login';
         }
@@ -28,7 +37,7 @@ const LoginMain = () => {
     function onsubmit() {
         axios({
             method: 'POST',
-            url: geturl2(),
+            url: geturl(),
             data: {
                 username: name.current,
                 password: password.current,
