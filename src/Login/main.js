@@ -18,17 +18,24 @@ const LoginMain = () => {
         return 'https://fun-together.herokuapp.com/register';
     }
 
+    function geturl2() {
+        if (Title === 'Login') {
+            return 'login';
+        }
+        return 'register';
+    }
+
     function onsubmit() {
         axios({
             method: 'POST',
-            url: geturl(),
+            url: geturl2(),
             data: {
                 username: name.current,
                 password: password.current,
             },
         })
             .then((e) => {
-                // window.rr = e;
+                window.rr = e;
                 console.log('submit result ', e.status, e.data); // 现在这个 e.data 是登录进来的 user 的 object
                 navigate('/main', { state: e.data });
             })
@@ -39,7 +46,7 @@ const LoginMain = () => {
     function cookie() {
         axios({
             method: 'post',
-            url: 'https://fun-together.herokuapp.com/cookie',
+            url: 'cookie',
             // headers: {
             //     Authorization: `Bearer ${`eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InBvcCIsImlhdCI6MTY0OTY1MDk3M30.xyBYVaM6-_NCtY1wnd-c5E2TXKoarw8kzTz9Pg2vNvE`}`,
             // },
@@ -54,7 +61,7 @@ const LoginMain = () => {
     function test() {
         axios({
             method: 'post',
-            url: 'https://fun-together.herokuapp.com/authMiddle',
+            url: 'authMiddle',
             data: { msg: 'nothing' },
         })
             .then((e) => {
@@ -68,7 +75,7 @@ const LoginMain = () => {
     function refresh() {
         axios({
             method: 'post',
-            url: 'https://fun-together.herokuapp.com/refresh',
+            url: 'refresh',
         }).then((e) => {
             console.log('refresh result ', e);
         });

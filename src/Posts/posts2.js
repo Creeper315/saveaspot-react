@@ -7,7 +7,7 @@ import { Button } from 'reactstrap';
 import PostModalOwn from './postModalOwn';
 
 const Posts2 = ({ PageData, setPageData, ThisUser, loadPosts }) => {
-    window.pp = PageData;
+    // window.pp = PageData;
     const [ActiveIdx, setActiveIdx] = useState(null);
     const [ModalOpen, setModalOpen] = useState(false);
 
@@ -74,7 +74,7 @@ const Posts2 = ({ PageData, setPageData, ThisUser, loadPosts }) => {
     function handleHelp(toHelp, postId) {
         return axios({
             method: 'POST',
-            url: 'https://fun-together.herokuapp.com/posthelp',
+            url: 'posthelp',
             data: { toHelp, postId }, // myId 在 server 的 req.info.id 里面，所以这里不用 pass 进去
         });
     }
@@ -96,7 +96,7 @@ const Posts2 = ({ PageData, setPageData, ThisUser, loadPosts }) => {
         // 如果 delete 成功，就 call loadPosts()
         return axios({
             method: 'post',
-            url: 'https://fun-together.herokuapp.com/postdelete',
+            url: 'postdelete',
             data: { postId },
         }).then((e) => {
             if (e.status === 200) {

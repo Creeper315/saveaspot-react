@@ -30,7 +30,7 @@ const SearchLocation = ({ loadPosts, filterOption }) => {
     useEffect(() => {
         axios({
             method: 'GET',
-            url: 'https://fun-together.herokuapp.com/getlocation',
+            url: 'getlocation',
         }).then((e) => {
             // setAllOptions(e.data.valueLabelPair);
             // setAllLocation(e.data.listLoc);

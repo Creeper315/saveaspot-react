@@ -28,7 +28,7 @@ const SearchUser = ({ loadPosts, filterOption }) => {
     // const InputValue = useRef();
     // window.aa = AllName;
     // window.ss = Selected;
-    window.rr = filterOption;
+    // window.rr = filterOption;
     // console.log('SEARCH ft opts ', filterOption.current);
 
     useEffect(() => {}, []);
@@ -36,7 +36,7 @@ const SearchUser = ({ loadPosts, filterOption }) => {
     function getLikeUser(str) {
         axios({
             method: 'post',
-            url: 'https://fun-together.herokuapp.com/likeuser',
+            url: 'likeuser',
             data: { str },
         }).then((e) => {
             // assume return list of name, used as Options

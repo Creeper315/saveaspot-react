@@ -17,7 +17,7 @@
 // reportWebVitals();
 
 // "proxy": "http://localhost:3001",
-// https://fun-together.herokuapp.com/login
+//   "proxy": "https://fun-together.herokuapp.com",
 
 import React from 'react';
 import ReactDOM from 'react-dom/client';

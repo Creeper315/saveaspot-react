@@ -17,7 +17,7 @@ const PostModalOther = ({
     useEffect(() => {
         axios({
             method: 'post',
-            url: 'https://fun-together.herokuapp.com/checksaved',
+            url: 'checksaved',
             data: { postId: p.postid },
         }).then((e) => {
             if (e.status === 200) {
@@ -30,7 +30,7 @@ const PostModalOther = ({
         let click = () => {
             axios({
                 method: 'POST',
-                url: 'https://fun-together.herokuapp.com/postsave',
+                url: 'postsave',
                 data: { toSave: !isSaved, postId: p.postid }, // myId 在 server 的 req.info.id 里面，所以这里不用 pass 进去
             }).then((e) => {
                 if (e.status === 200) {

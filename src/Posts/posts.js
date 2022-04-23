@@ -26,7 +26,7 @@ const Posts = ({ PageData, ThisUser, loadPosts }) => {
         let toHelp = !isHelped; // 如果 post 已经被 help 了，isHelped == true, 那么就要取消 help，toHelp = false == !isHelped
         return axios({
             method: 'POST',
-            url: 'https://fun-together.herokuapp.com/posthelp',
+            url: 'posthelp',
             data: { toHelp, postId }, // myId 在 server 的 req.info.id 里面，所以这里不用 pass 进去
         })
             .then((e) => {
@@ -43,7 +43,7 @@ const Posts = ({ PageData, ThisUser, loadPosts }) => {
         let toSave = !isSaved;
         return axios({
             method: 'POST',
-            url: 'https://fun-together.herokuapp.com/postsave',
+            url: 'postsave',
             data: { toSave, postId }, // myId 在 server 的 req.info.id 里面，所以这里不用 pass 进去
         })
             .then((e) => {
@@ -60,7 +60,7 @@ const Posts = ({ PageData, ThisUser, loadPosts }) => {
         // 如果 delete 成功，就 call loadPosts()
         axios({
             method: 'post',
-            url: 'https://fun-together.herokuapp.com/postdelete',
+            url: 'postdelete',
             data: { postId },
         }).then((e) => {
             if (e.status === 200) {
