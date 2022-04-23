@@ -74,7 +74,7 @@ const Posts2 = ({ PageData, setPageData, ThisUser, loadPosts }) => {
     function handleHelp(toHelp, postId) {
         return axios({
             method: 'POST',
-            url: 'posthelp',
+            url: 'https://fun-together.herokuapp.com/posthelp',
             data: { toHelp, postId }, // myId 在 server 的 req.info.id 里面，所以这里不用 pass 进去
         });
     }
@@ -96,7 +96,7 @@ const Posts2 = ({ PageData, setPageData, ThisUser, loadPosts }) => {
         // 如果 delete 成功，就 call loadPosts()
         return axios({
             method: 'post',
-            url: 'postdelete',
+            url: 'https://fun-together.herokuapp.com/postdelete',
             data: { postId },
         }).then((e) => {
             if (e.status === 200) {

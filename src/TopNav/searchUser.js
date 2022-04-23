@@ -36,7 +36,7 @@ const SearchUser = ({ loadPosts, filterOption }) => {
     function getLikeUser(str) {
         axios({
             method: 'post',
-            url: 'likeuser',
+            url: 'https://fun-together.herokuapp.com/likeuser',
             data: { str },
         }).then((e) => {
             // assume return list of name, used as Options

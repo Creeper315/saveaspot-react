@@ -32,7 +32,7 @@ const LoginMain = () => {
     function cookie() {
         axios({
             method: 'post',
-            url: 'cookie',
+            url: 'https://fun-together.herokuapp.com/cookie',
             // headers: {
             //     Authorization: `Bearer ${`eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InBvcCIsImlhdCI6MTY0OTY1MDk3M30.xyBYVaM6-_NCtY1wnd-c5E2TXKoarw8kzTz9Pg2vNvE`}`,
             // },
@@ -47,7 +47,7 @@ const LoginMain = () => {
     function test() {
         axios({
             method: 'post',
-            url: 'authMiddle',
+            url: 'https://fun-together.herokuapp.com/authMiddle',
             data: { msg: 'nothing' },
         })
             .then((e) => {
@@ -61,7 +61,7 @@ const LoginMain = () => {
     function refresh() {
         axios({
             method: 'post',
-            url: 'refresh',
+            url: 'https://fun-together.herokuapp.com/refresh',
         }).then((e) => {
             console.log('refresh result ', e);
         });

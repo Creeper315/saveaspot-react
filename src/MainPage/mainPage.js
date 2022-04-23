@@ -64,7 +64,7 @@ const MainPage = () => {
         // console.log('start load post ', filterOption.current);
         axios({
             method: 'post',
-            url: 'getpost',
+            url: 'https://fun-together.herokuapp.com/getpost',
             data: filterOption.current,
         })
             .then((e) => {

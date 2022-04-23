@@ -25,7 +25,7 @@ const PostModal = ({
     let initSaved = () => {
         axios({
             method: 'post',
-            url: 'checksaved',
+            url: 'https://fun-together.herokuapp.com/checksaved',
             data: { postId: x.postid },
         }).then((e) => {
             // console.log('init save', e);
@@ -46,7 +46,11 @@ const PostModal = ({
         return (
             <Button
                 onClick={() => {
-                    axios({ method: 'POST', url: 'postupdate', data: { x } });
+                    axios({
+                        method: 'POST',
+                        url: 'https://fun-together.herokuapp.com/postupdate',
+                        data: { x },
+                    });
                 }}
             >
                 Edit

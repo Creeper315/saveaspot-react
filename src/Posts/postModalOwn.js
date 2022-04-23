@@ -62,7 +62,7 @@ const PostModalOwn = ({
         let click = () => {
             axios({
                 method: 'post',
-                url: 'postedit',
+                url: 'https://fun-together.herokuapp.com/postedit',
                 data: newUpdateObj(),
             }).then((e) => {
                 if (e.status === 200) {
