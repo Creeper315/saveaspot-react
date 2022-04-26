@@ -3,6 +3,7 @@ import { useState, useRef } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import Parent from './parent';
+import { heroku } from '../App';
 
 const LoginMain = () => {
     let navigate = useNavigate();
@@ -22,9 +23,9 @@ const LoginMain = () => {
 
     function urlHeroku() {
         if (Title === 'Login') {
-            return 'https://fun-together.herokuapp.com/login';
+            return heroku + 'login';
         }
-        return 'https://fun-together.herokuapp.com/register';
+        return heroku + 'register';
     }
 
     function geturl() {
@@ -37,7 +38,7 @@ const LoginMain = () => {
     function onsubmit() {
         axios({
             method: 'POST',
-            url: geturl(),
+            url: urlHeroku(),
             data: {
                 username: name.current,
                 password: password.current,
@@ -52,6 +53,7 @@ const LoginMain = () => {
                 console.log('submit Error ', e, e.response);
             });
     }
+
     function cookie() {
         axios({
             method: 'post',

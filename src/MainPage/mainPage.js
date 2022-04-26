@@ -9,6 +9,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { useLocation } from 'react-router-dom';
 
 import axios from 'axios';
+import { heroku } from '../App';
 
 const MainPage = () => {
     const LOCATION = useLocation();
@@ -64,7 +65,7 @@ const MainPage = () => {
         // console.log('start load post ', filterOption.current);
         axios({
             method: 'post',
-            url: 'getpost',
+            url: heroku + 'getpost',
             data: filterOption.current,
         })
             .then((e) => {

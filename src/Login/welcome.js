@@ -1,8 +1,12 @@
 import a from '../img/lin.jpg';
 import { useNavigate } from 'react-router-dom';
+import { useState } from 'react';
+import Parent from './parent';
 
 const Welcome = () => {
     const navi = useNavigate();
+    console.log('Welcome rendered!');
+    const [arr, setarr] = useState([1, 2, 3, 4, 5]);
 
     return (
         <div>
@@ -22,6 +26,22 @@ const Welcome = () => {
             >
                 to main
             </button>
+            <button
+                onClick={() => {
+                    arr[2] = { hi: 'wow' };
+                    setarr(arr);
+                }}
+            >
+                push
+            </button>
+            <button
+                onClick={() => {
+                    console.log(arr);
+                }}
+            >
+                show arr
+            </button>
+            {/* {<Parent />} */}
         </div>
     );
 };

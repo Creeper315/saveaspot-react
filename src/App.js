@@ -1,12 +1,13 @@
 import store from './Redux/store';
-import axios from 'axios';
-import { useEffect, useState } from 'react';
-import LoginMain from './Login/main';
-import TopNav from './TopNav/topNav';
+import Login from './Login/main';
 import MainPage from './MainPage/mainPage';
 import { Provider } from 'react-redux';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Welcome from './Login/welcome';
+import LoginMain from './Login/loginMain';
+
+// export const heroku = 'https://fun-together.herokuapp.com/';
+export const heroku = 'http://localhost:3001/';
 
 function App() {
     return (
