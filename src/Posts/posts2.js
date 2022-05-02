@@ -23,8 +23,9 @@ const Posts2 = ({ PageData, setPageData, ThisUser, loadPosts }) => {
                     key={idx}
                     kk={idx}
                     ThisUser={ThisUser}
-                    renderHelpButton={renderHelpButton}
-                    renderDeleteButton={renderDeleteButton}
+                    getJoinBtn={getJoinBtn}
+                    getDeleteBtn={getDeleteBtn}
+                    getEditBtn={getEditBtn}
                     toOpenModal={toOpenModal}
                 />
             );
@@ -40,69 +41,60 @@ const Posts2 = ({ PageData, setPageData, ThisUser, loadPosts }) => {
         setModalOpen(false);
     }
 
-    function renderHelpButton(idx) {
+    // function ren
+    function getJoinBtn(idx) {
         let p = PageData[idx];
-        if (p.userid === ThisUser.id) {
-            // console.log('warning. helping own post ');
+        if (p.username === ThisUser.username) {
             return null;
         }
-        let toHelp = true;
-        let buttonName = '???';
-        if (p.helper == null || p.helper == '') {
-            buttonName = 'Help';
-        } else {
-            toHelp = false;
-            buttonName = 'Cancel Help';
-        }
-
         let click = () => {
-            handleHelp(toHelp, p.postid).then((e) => {
+            let postid = p.id;
+            let curppl = p.curppl;
+            let toJoin = p.btn === 'Join';
+            axios({
+                method: 'post',
+                url: '/api/userjoin',
+                data: { postid, curppl, toJoin },
+            }).then((e) => {
+                console.log('join then ', e);
                 if (e.status === 200) {
-                    console.log('here !');
-                    if (toHelp) {
-                        PageData[idx].helper = ThisUser.username;
+                    if (toJoin) {
+                        PageData[idx].btn = 'Leave';
+                        PageData[idx].curppl++;
                     } else {
-                        PageData[idx].helper = '';
+                        PageData[idx].btn = 'Join';
+                        PageData[idx].curppl--;
                     }
                     setPageData([...PageData]);
                 }
             });
         };
-        return <Button onClick={click}>{buttonName}</Button>;
+        return <Button onClick={click}>{p.btn}</Button>;
     }
-
-    function handleHelp(toHelp, postId) {
-        return axios({
-            method: 'POST',
-            url: 'posthelp',
-            data: { toHelp, postId }, // myId 在 server 的 req.info.id 里面，所以这里不用 pass 进去
-        });
+    function getEditBtn(idx) {
+        if (PageData[idx].username !== ThisUser.username) {
+            return null;
+        }
+        return <Button onClick={() => toOpenModal(idx)}>Edit</Button>;
     }
-
-    function renderDeleteButton(idx) {
+    function getDeleteBtn(idx) {
         let p = PageData[idx];
-        if (p.userid !== ThisUser.id) {
-            // console.log('warning. deleting other ppl"s post');
+        if (p.username !== ThisUser.username) {
             return null;
         }
         let click = () => {
-            // console.log('delete called');
-            handleDelete(p.postid);
+            console.log('delete called', p);
+            axios({
+                method: 'post',
+                url: '/api/postdelete',
+                data: { postid: p.id },
+            }).then((e) => {
+                if (e.status === 200) {
+                    loadPosts();
+                }
+            });
         };
         return <Button onClick={click}>Delete</Button>;
-    }
-
-    function handleDelete(postId) {
-        // 如果 delete 成功，就 call loadPosts()
-        return axios({
-            method: 'post',
-            url: 'postdelete',
-            data: { postId },
-        }).then((e) => {
-            if (e.status === 200) {
-                loadPosts();
-            }
-        });
     }
 
     function whichModal() {
@@ -112,7 +104,8 @@ const Posts2 = ({ PageData, setPageData, ThisUser, loadPosts }) => {
         if (PageData[ActiveIdx] == null) {
             console.log('err. no such post');
         }
-        if (PageData[ActiveIdx].userid == ThisUser.id) {
+        console.log('-- ', PageData[ActiveIdx], ThisUser.username);
+        if (PageData[ActiveIdx].username === ThisUser.username) {
             return (
                 <PostModalOwn
                     PageData={PageData}
@@ -120,17 +113,18 @@ const Posts2 = ({ PageData, setPageData, ThisUser, loadPosts }) => {
                     ModalOpen={ModalOpen}
                     toCloseModal={toCloseModal}
                     ActiveIdx={ActiveIdx} // this is one-post 's key, the index in PostData !
-                    renderDeleteButton={renderDeleteButton}
+                    getDeleteBtn={getDeleteBtn}
                 />
             );
         } else {
+            console.log('over here');
             return (
                 <PostModalOther
                     PageData={PageData}
                     ModalOpen={ModalOpen}
                     toCloseModal={toCloseModal}
                     ActiveIdx={ActiveIdx} // this is one-post 's key, the index in PostData !
-                    renderHelpButton={renderHelpButton}
+                    getJoinBtn={getJoinBtn}
                 />
             );
         }
@@ -139,7 +133,7 @@ const Posts2 = ({ PageData, setPageData, ThisUser, loadPosts }) => {
     return (
         <Fragment>
             <div className="post-container">{renderPost()}</div>
-            {whichModal()}
+            {ActiveIdx !== null && whichModal()}
         </Fragment>
     );
 };

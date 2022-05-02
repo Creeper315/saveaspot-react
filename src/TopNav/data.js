@@ -1,14 +1,13 @@
-const locations = [
-    { value: 'ocean1', label: 'Ocean' },
-    { value: 'blue', label: 'Blue' },
-    { value: 'purple', label: 'Purple' },
-    { value: 'red', label: 'Red' },
-    { value: 'orange', label: 'Orange' },
-    { value: 'yellow', label: 'Yellow' },
-    { value: 'green', label: 'Green' },
-    { value: 'forest', label: 'Forest' },
-    { value: 'slate', label: 'Slate' },
-    { value: 'silver', label: 'Silver' },
+const activity = [
+    { value: 'swimming', label: 'Swimming' },
+    { value: 'party', label: 'Party' },
+    { value: 'studying', label: 'Studying' },
+    { value: 'biking', label: 'Biking' },
+    { value: 'hiking', label: 'Hiking' },
+    { value: 'table tennis', label: 'Table Tennis' },
+    { value: 'basket ball', label: 'Basket Ball' },
+    { value: 'gaming', label: 'Gaming' },
+    { value: 'others', label: 'Others' },
 ];
 
-module.exports = { locations };
+module.exports = { activity };

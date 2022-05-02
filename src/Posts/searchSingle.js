@@ -22,7 +22,7 @@ const Option = (props) => {
     );
 };
 
-const SearchUser = ({ loadPosts, filterOption }) => {
+const SearchSingle = ({ loadPosts, filterOption }) => {
     const [Selected, setSelected] = useState('');
     const [AllName, setAllName] = useState([]);
     // const InputValue = useRef();
@@ -36,7 +36,7 @@ const SearchUser = ({ loadPosts, filterOption }) => {
     function getLikeUser(str) {
         axios({
             method: 'post',
-            url: 'likeuser',
+            url: 'api/likeuser',
             data: { str },
         }).then((e) => {
             // assume return list of name, used as Options
@@ -94,4 +94,4 @@ const SearchUser = ({ loadPosts, filterOption }) => {
     );
 };
 
-export default SearchUser;
+export default SearchSingle;

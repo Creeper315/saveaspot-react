@@ -5,35 +5,44 @@ const OnePost2 = ({
     PageData,
     kk,
     ThisUser,
-    renderHelpButton,
-    renderDeleteButton,
+    getJoinBtn,
+    getDeleteBtn,
+    getEditBtn,
     toOpenModal,
 }) => {
     // console.log('one post 2 ', PageData, kk);
-    function renderEditButton() {
-        if (PageData[kk].userid !== ThisUser.id) {
-            return null;
-        }
-        return <Button onClick={() => toOpenModal(kk)}>Edit</Button>;
-    }
+    // function getBtn(){
+    //     if (PageData[kk].username === ThisUser.username){
+    //         // Own post
+    //         return <Fragment>
+    //             {}
+    //         </Fragment>
+    //     }
+    // }
     return (
         <Fragment>
             <div>
-                {renderHelpButton(kk)}
-                {renderEditButton()}
-                {renderDeleteButton(kk)}
+                {getJoinBtn(kk)}
+                {getEditBtn(kk)}
+                {getDeleteBtn(kk)}
                 <div
                     className="one-post"
                     onClick={() => {
-                        console.log('open modal idx ', kk);
+                        // console.log('open modal idx ', kk);
                         toOpenModal(kk);
                     }}
                 >
-                    <h4>{'Location: ' + PageData[kk].locName}</h4>
+                    <h4>{'Location: ' + PageData[kk].locname}</h4>
                     <p>{'Requester: ' + PageData[kk].username}</p>
                     <p>{'Time: ' + PageData[kk].time}</p>
                     <p>{'Description: ' + PageData[kk].description}</p>
-                    <p>{'Helper: ' + PageData[kk].helper}</p>
+                    <p>{'Activity: ' + PageData[kk].activity}</p>
+                    <p>
+                        {'Joiner: ' +
+                            PageData[kk].curppl +
+                            ' / ' +
+                            PageData[kk].maxppl}
+                    </p>
                 </div>
             </div>
         </Fragment>

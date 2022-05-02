@@ -10,15 +10,15 @@ const PostModalOther = ({
     ModalOpen,
     toCloseModal,
     ActiveIdx,
-    renderHelpButton,
+    getJoinBtn,
 }) => {
     const p = PageData[ActiveIdx];
     const [isSaved, setisSaved] = useState(false);
     useEffect(() => {
         axios({
             method: 'post',
-            url: 'checksaved',
-            data: { postId: p.postid },
+            url: '/api/checksaved',
+            data: { postid: p.id },
         }).then((e) => {
             if (e.status === 200) {
                 setisSaved(e.data);
@@ -30,8 +30,8 @@ const PostModalOther = ({
         let click = () => {
             axios({
                 method: 'POST',
-                url: 'postsave',
-                data: { toSave: !isSaved, postId: p.postid }, // myId 在 server 的 req.info.id 里面，所以这里不用 pass 进去
+                url: 'api/postsave',
+                data: { toSave: !isSaved, postid: p.id }, // myId 在 server 的 req.info.id 里面，所以这里不用 pass 进去
             }).then((e) => {
                 if (e.status === 200) {
                     setisSaved(!isSaved);
@@ -39,13 +39,15 @@ const PostModalOther = ({
             });
         };
         return (
-            <Button onClick={click}>{isSaved ? 'Cancel Save' : 'Save'}</Button>
+            <Button onClick={click}>
+                {isSaved ? 'Remove From Save' : 'Add to Save'}
+            </Button>
         );
     }
 
     return (
         <Modal isOpen={ModalOpen} toggle={toCloseModal}>
-            <ModalHeader toggle={toCloseModal}>Your Own Post</ModalHeader>
+            <ModalHeader toggle={toCloseModal}>Other's Post</ModalHeader>
             <ModalBody>
                 <img
                     style={{ width: '100px', height: '100px' }}
@@ -92,7 +94,7 @@ const PostModalOther = ({
                 <img src={p.postp} alt={'seat detail '}></img>
             </ModalBody>
             <ModalFooter>
-                {renderHelpButton(ActiveIdx)}
+                {getJoinBtn(ActiveIdx)}
                 {renderAddSavedButton()}
                 <Button onClick={toCloseModal}>Close</Button>
             </ModalFooter>

@@ -4,7 +4,7 @@ import LoginRight from './loginRight';
 import { useState, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
-import { heroku } from '../App';
+// import { heroku } from '../App';
 
 const LoginMain = () => {
     let navigate = useNavigate();
@@ -12,17 +12,24 @@ const LoginMain = () => {
     const name = useRef('');
     const password = useRef('');
 
-    function urlHeroku() {
+    // function urlHeroku() {
+    //     if (isLogin.current) {
+    //         return heroku + 'login';
+    //     }
+    //     return heroku + 'register';
+    // }
+
+    function url() {
         if (isLogin.current) {
-            return heroku + 'login';
+            return 'api/login';
         }
-        return heroku + 'register';
+        return 'api/register';
     }
 
     function onsubmit() {
         axios({
             method: 'POST',
-            url: urlHeroku(),
+            url: url(),
             data: {
                 username: name.current,
                 password: password.current,
@@ -30,6 +37,12 @@ const LoginMain = () => {
         })
             .then((e) => {
                 console.log('submit result ', e.status, e.data); // 现在这个 e.data 是登录进来的 user 的 object
+                // email: null;
+                // id: 2;
+                // phone: null;
+                // picture: null;
+                // stuid: null;
+                // username: 'Rua';
                 navigate('/main', { state: e.data });
             })
             .catch((e) => {

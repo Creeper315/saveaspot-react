@@ -1,6 +1,6 @@
 import { default as ReactSelect } from 'react-select';
 import { components } from 'react-select';
-import { locations } from './data';
+import { activity } from './data';
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 import a from '../img/lin.jpg';
@@ -15,29 +15,17 @@ const Option = (props) => {
                     type="checkbox"
                     checked={props.isSelected}
                     onChange={() => null}
-                />{' '}
+                />
                 <label>{props.label}</label>
             </components.Option>
         </div>
     );
 };
 
-const SearchLocation = ({ loadPosts, filterOption }) => {
+const SearchActivity = ({ loadPosts, filterOption }) => {
     const [Selected, setSelected] = useState('');
-    const [AllLocation, setAllLocation] = useState([]);
-    // const [AllOptions, setAllOptions] = useState();
     // console.log('LOCATION ft opt ', filterOption.current);
-    useEffect(() => {
-        axios({
-            method: 'GET',
-            url: 'api/getlocation',
-        }).then((e) => {
-            // setAllOptions(e.data.valueLabelPair);
-            // setAllLocation(e.data.listLoc);
-            setAllLocation(e.data);
-            // console.log('all Loc - ', e.data);
-        });
-    }, []);
+    useEffect(() => {}, []);
 
     let onMenuClose = () => {
         // query sql to select on these locations
@@ -51,31 +39,38 @@ const SearchLocation = ({ loadPosts, filterOption }) => {
 
         setSelected(list);
 
-        filterOption.current.listLocation = list.map((e) => {
-            return e.locname;
+        filterOption.current.listActivity = list.map((e) => {
+            return e.value;
         });
     };
+
+    // const filterOption = useRef({
+    //     listLocation: [],
+    //     listActivity: [],
+    //     pageSize: 3,
+    //     onPage: 1,
+    // });
 
     return (
         <ReactSelect
             className="multi-select"
-            options={AllLocation}
-            isMulti
-            closeMenuOnSelect={false}
-            hideSelectedOptions={false}
-            components={{
-                Option,
-            }}
-            onChange={handleChange}
-            allowSelectAll={true}
+            options={activity}
             value={Selected}
+            onChange={handleChange}
             onMenuClose={onMenuClose}
             noOptionsMessage={() => "you're beautiful"}
             onFocus={(e) => {
                 // console.log('on fcs ', e);
             }}
+            components={{
+                Option,
+            }}
+            isMulti
+            closeMenuOnSelect={false}
+            hideSelectedOptions={false}
+            allowSelectAll={true}
         />
     );
 };
 
-export default SearchLocation;
+export default SearchActivity;

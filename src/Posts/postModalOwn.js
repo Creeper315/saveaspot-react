@@ -12,18 +12,32 @@ const PostModalOwn = ({
     ModalOpen,
     toCloseModal,
     ActiveIdx,
-    renderDeleteButton,
+    getDeleteBtn,
 }) => {
     const p = PageData[ActiveIdx];
+    // console.log('whats p ', p);
     // const [username, setusername] = useState(p.username);
-    const [locname, setlocname] = useState(p.locName);
+    const [locname, setlocname] = useState(p.locname);
     const [time, settime] = useState(p.time);
     const [description, setdescription] = useState(p.description);
-    const [email, setemail] = useState(p.email);
-    const [phone, setphone] = useState(p.phone);
-    const [reward, setreward] = useState(p.reward);
-
+    const [email, setemail] = useState('');
+    const [phone, setphone] = useState('');
     const [MapOpen, setMapOpen] = useState(false);
+
+    useEffect(() => {
+        // get * from user where username = p.username
+        // console.log('here !');
+        axios({
+            method: 'get',
+            url: '/api/getuser',
+            params: { username: p.username },
+        }).then((e) => {
+            // console.log('???', e.data);
+            setemail(e.data.email);
+            setphone(e.data.phone);
+        });
+    }, []);
+
     function toggleMap(bool) {
         if (bool === true || bool === false) {
             setMapOpen(bool);
@@ -31,26 +45,13 @@ const PostModalOwn = ({
         setMapOpen(!MapOpen);
     }
 
-    function castPostObj(o) {
-        let r = {};
-        r.postid = o.postid;
-        r.userid = o.userid;
-        r.time = o.time;
-        r.description = o.description;
-        r.locname = o.locname;
-        r.helper = o.helper;
-        r.reward = o.reward;
-        r.picture = o.postp;
-        return r;
-    }
     function newUpdateObj() {
         let r = {};
-        r.postid = p.postid;
+        r.postid = p.id;
         // r.userid = p.userid;
         r.time = time;
         r.description = description;
         r.locname = locname;
-        r.reward = reward;
         let u = {};
         // u.id = p.userid;
         u.email = email;
@@ -60,13 +61,21 @@ const PostModalOwn = ({
 
     function renderSaveEditButton() {
         let click = () => {
+            console.log('???????????????');
             axios({
                 method: 'post',
-                url: 'postedit',
+                url: 'api/postedit',
                 data: newUpdateObj(),
             }).then((e) => {
+                console.log('here we are', e.status);
                 if (e.status === 200) {
                     // Also, modify PostData at ActiveIdx
+                    p.locname = locname;
+                    p.time = time;
+                    p.description = description;
+                    console.log('new p', p);
+                    PageData[ActiveIdx] = { ...p };
+                    setPageData([...PageData]);
                     toCloseModal();
                 }
             });
@@ -128,13 +137,6 @@ const PostModalOwn = ({
                             onChange={(e) => setphone(e.target.value)}
                         />
                     </FormGroup>
-                    <FormGroup>
-                        <Label>Reward</Label>
-                        <Input
-                            value={reward}
-                            onChange={(e) => setreward(e.target.value)}
-                        />
-                    </FormGroup>
                 </Form>
                 <img src={p.locp} alt={'location '}></img>
                 <img src={p.postp} alt={'seat detail '}></img>
@@ -155,7 +157,7 @@ const PostModalOwn = ({
                     </Modal>
                 )}
                 {renderSaveEditButton()}
-                {renderDeleteButton(ActiveIdx)}
+                {getDeleteBtn(ActiveIdx)}
                 <Button onClick={toCloseModal}>CLose</Button>
             </ModalFooter>
         </Modal>

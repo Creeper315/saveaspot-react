@@ -87,8 +87,12 @@ const LoginRight = ({ name, password, isLogin, onsubmit }) => {
                         onChange={(e) => (password.current = e.target.value)}
                     />
 
-                    <div id="login-submit" className="login-shape">
-                        <span onClick={onsubmit}>{SubmitLabel}</span>
+                    <div
+                        id="login-submit"
+                        className="login-shape"
+                        onClick={onsubmit}
+                    >
+                        <span>{SubmitLabel}</span>
                     </div>
                 </div>
             </div>

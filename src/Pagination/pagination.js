@@ -39,10 +39,10 @@ const Pagination = ({
         }
 
         // 修改 redux 里面的 onPage 值，然后直接 call: loadPost()
-        console.log('before on page ', filterOption.current.onPage);
+        // console.log('before on page ', filterOption.current.onPage);
         // setP(p);
         filterOption.current.onPage = p;
-        console.log('pagi before run effect ', filterOption.current.onPage);
+        // console.log('pagi before run effect ', filterOption.current.onPage);
 
         // setRunEffect(!RunEffect);
         loadPosts();
