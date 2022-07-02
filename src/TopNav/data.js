@@ -1,4 +1,4 @@
-const activity = [
+const activities = [
     { value: 'swimming', label: 'Swimming' },
     { value: 'party', label: 'Party' },
     { value: 'studying', label: 'Studying' },
@@ -10,4 +10,4 @@ const activity = [
     { value: 'others', label: 'Others' },
 ];
 
-module.exports = { activity };
+module.exports = { activities };

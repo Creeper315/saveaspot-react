@@ -1,12 +1,22 @@
 import '../css/post.css';
-import OnePost2 from './onePost2';
+import OnePost from './onePost';
 import PostModalOther from './postModalOther';
 import { useEffect, useState, Fragment } from 'react';
 import axios from 'axios';
 import { Button } from 'reactstrap';
 import PostModalOwn from './postModalOwn';
+import MainMap from './mainMap';
+import '../sass/modal-side-btn.scss';
+import '../sass/modal.scss';
 
-const Posts2 = ({ PageData, setPageData, ThisUser, loadPosts }) => {
+const Posts = ({
+    PageData,
+    setPageData,
+    AllLocation,
+    ThisUser,
+    loadPosts,
+    MapViewOpen,
+}) => {
     // window.pp = PageData;
     const [ActiveIdx, setActiveIdx] = useState(null);
     const [ModalOpen, setModalOpen] = useState(false);
@@ -17,17 +27,18 @@ const Posts2 = ({ PageData, setPageData, ThisUser, loadPosts }) => {
         }
         return PageData.map((e, idx) => {
             return (
-                <OnePost2
-                    PageData={PageData}
-                    setPageData={setPageData}
-                    key={idx}
-                    kk={idx}
-                    ThisUser={ThisUser}
-                    getJoinBtn={getJoinBtn}
-                    getDeleteBtn={getDeleteBtn}
-                    getEditBtn={getEditBtn}
-                    toOpenModal={toOpenModal}
-                />
+                <div className="one-post-contain" key={idx}>
+                    <OnePost
+                        PageData={PageData}
+                        setPageData={setPageData}
+                        kk={idx}
+                        ThisUser={ThisUser}
+                        getJoinBtn={getJoinBtn}
+                        getDeleteBtn={getDeleteBtn}
+                        getEditBtn={getEditBtn}
+                        toOpenModal={toOpenModal}
+                    />
+                </div>
             );
         });
     }
@@ -42,6 +53,29 @@ const Posts2 = ({ PageData, setPageData, ThisUser, loadPosts }) => {
     }
 
     // function ren
+    function clickJoin(p) {
+        let postid = p.id;
+        let curppl = p.curppl;
+        let toJoin = p.btn === 'Join';
+        axios({
+            method: 'post',
+            url: '/api/userjoin',
+            data: { postid, curppl, toJoin },
+        }).then((e) => {
+            // console.log('join then ', e);
+            if (e.status === 200) {
+                if (toJoin) {
+                    p.btn = 'Leave';
+                    p.curppl++;
+                } else {
+                    p.btn = 'Join';
+                    p.curppl--;
+                }
+                setPageData([...PageData]);
+            }
+        });
+    }
+
     function getJoinBtn(idx) {
         let p = PageData[idx];
         if (p.username === ThisUser.username) {
@@ -71,12 +105,34 @@ const Posts2 = ({ PageData, setPageData, ThisUser, loadPosts }) => {
         };
         return <Button onClick={click}>{p.btn}</Button>;
     }
+
     function getEditBtn(idx) {
         if (PageData[idx].username !== ThisUser.username) {
             return null;
         }
         return <Button onClick={() => toOpenModal(idx)}>Edit</Button>;
     }
+
+    function clickDelete(p, closeModalFun) {
+        let ok = window.confirm('Sure to delete ?');
+        if (!ok) return;
+
+        axios({
+            method: 'post',
+            url: '/api/postdelete',
+            data: { postid: p.id },
+        })
+            .then((e) => {
+                if (e.status === 200) {
+                    loadPosts();
+                    if (closeModalFun) closeModalFun();
+                }
+            })
+            .catch((e) => {
+                alert('delete failed, error: ', e);
+            });
+    }
+
     function getDeleteBtn(idx) {
         let p = PageData[idx];
         if (p.username !== ThisUser.username) {
@@ -102,18 +158,24 @@ const Posts2 = ({ PageData, setPageData, ThisUser, loadPosts }) => {
             return null;
         }
         if (PageData[ActiveIdx] == null) {
-            console.log('err. no such post');
+            console.log('!!! err. no such post');
         }
-        console.log('-- ', PageData[ActiveIdx], ThisUser.username);
+        console.log(
+            'this post data-- my username',
+            PageData[ActiveIdx],
+            ThisUser.username
+        );
         if (PageData[ActiveIdx].username === ThisUser.username) {
             return (
                 <PostModalOwn
                     PageData={PageData}
                     setPageData={setPageData}
                     ModalOpen={ModalOpen}
+                    MapViewOpen={MapViewOpen}
                     toCloseModal={toCloseModal}
                     ActiveIdx={ActiveIdx} // this is one-post 's key, the index in PostData !
-                    getDeleteBtn={getDeleteBtn}
+                    clickDelete={clickDelete}
+                    AllLocation={AllLocation}
                 />
             );
         } else {
@@ -121,21 +183,30 @@ const Posts2 = ({ PageData, setPageData, ThisUser, loadPosts }) => {
             return (
                 <PostModalOther
                     PageData={PageData}
+                    setPageData={setPageData}
                     ModalOpen={ModalOpen}
+                    MapViewOpen={MapViewOpen}
                     toCloseModal={toCloseModal}
                     ActiveIdx={ActiveIdx} // this is one-post 's key, the index in PostData !
-                    getJoinBtn={getJoinBtn}
+                    clickJoin={clickJoin}
                 />
             );
         }
     }
 
     return (
-        <Fragment>
-            <div className="post-container">{renderPost()}</div>
+        <div className="post-container">
+            {MapViewOpen && (
+                <MainMap
+                    AllLocation={AllLocation}
+                    toOpenModal={toOpenModal}
+                    PageData={PageData}
+                />
+            )}
+            {!MapViewOpen && renderPost()}
             {ActiveIdx !== null && whichModal()}
-        </Fragment>
+        </div>
     );
 };
 
-export default Posts2;
+export default Posts;

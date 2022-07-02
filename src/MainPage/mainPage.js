@@ -1,7 +1,7 @@
 import '../css/main.css';
 import TopNav from '../TopNav/topNav';
 import SideBar from '../SideBar/sideBar';
-import Posts2 from '../Posts/posts2';
+import Posts from '../Posts/posts';
 import Pagination from '../Pagination/pagination';
 import { useState, useEffect, useRef } from 'react';
 import { useLocation } from 'react-router-dom';
@@ -16,29 +16,22 @@ const MainPage = () => {
         listActivity: [],
         isUpcoming: false,
         isSaved: false,
-        pageSize: 3,
+        pageSize: 4,
         onPage: 1,
     });
-    // const filterOption = useRef({
-    //     listLocation: [],
-    //     userId: null,
-    //     myId: null,
-    //     saved: false,
-    //     helpedByMe: false,
-    //     ownPost: false,
-    //     pageSize: 3,
-    //     onPage: 1,
-    // });
+
     const [ThisUser, setThisUser] = useState({});
     const [PageData, setPageData] = useState([]); // 当前 page 的 posts
     const [CurrentPage, setCurrentPage] = useState(0);
     const [DisplayPage, setDisplayPage] = useState(0);
     const [TotalPage, setTotalPage] = useState(0);
+    const [AllLocation, setAllLocation] = useState([]);
+    const [MapViewOpen, setMapViewOpen] = useState(false);
 
     useEffect(() => {
         // console.log('Main Effect');
         setThisUser(LOCATION.state);
-        console.log('set This User:! ', LOCATION.state);
+        // console.log('Location state This User:! ', LOCATION.state);
         // 这个 ThisUser 只能从 Login 或 Register 成功后，才会 set 这个 location
         // 所以，如果没有 login，直接跳到这个 /main 的 URL，ThisUser 是 null。
         // 所以需要回 Login 重新登录
@@ -46,11 +39,26 @@ const MainPage = () => {
             throw 'user undefined !';
         }
         console.log('filter opt ', filterOption.current);
+        loadUser(LOCATION.state.username);
         loadPosts();
+        loadLocation();
+
         return () => {
             console.log('Main Page un mounting');
         };
     }, []);
+
+    function loadUser(username) {
+        axios({
+            method: 'get',
+            url: '/api/getuser',
+            params: { username },
+        }).then((e) => {
+            console.log('Init This User:! ', LOCATION.state);
+            setThisUser(e.data);
+        });
+    }
+
     function loadPosts() {
         // console.log('start load post ', filterOption.current);
         axios({
@@ -74,57 +82,30 @@ const MainPage = () => {
                 console.log('catch load err ', e, e.response);
             });
     }
-
-    // function loadUpcoming() {
-    //     axios({
-    //         method: 'post',
-    //         url: '/api/myupcoming',
-    //         data: filterOption.current,
-    //         //拿所有我已经 join 的，和我创建的 post
-    //         // 如果 post 是 join 的，那 Button 就全初始为 Leave ！
-    //     }).then((e) => {
-    //         let listP = e.data.pageData;
-    //         listP = listP.map((e) => {
-    //             return { ...e, btn: 'Leave' };
-    //         });
-    //         setPageData(listP);
-    //         setCurrentPage(e.data.onPage);
-    //         setDisplayPage(e.data.onPage);
-    //         setTotalPage(e.data.totalPage);
-    //     });
-    // }
-
-    // function loadSaved() {
-    //     axios({
-    //         method: 'post',
-    //         url: '/api/getsaved',
-    //         data: filterOption.current,
-    //     }).then((e) => {
-    //         let listP = e.data.pageData;
-    //         setPageData(listP);
-    //         setCurrentPage(e.data.onPage);
-    //         setDisplayPage(e.data.onPage);
-    //         setTotalPage(e.data.totalPage);
-    //     });
-    // }
+    function loadLocation() {
+        axios({
+            method: 'GET',
+            url: 'api/getlocation',
+        }).then((e) => {
+            setAllLocation(e.data);
+        });
+    }
 
     return (
         <div className="all-container">
             <div className="grid-bx-1">
-                {/* <button
-                    onClick={() => console.log(filterOption.current)}
-                    style={{ position: 'absolute' }}
-                >
-                    Show ref
-                </button> */}
                 <TopNav
+                    AllLocation={AllLocation}
                     loadPosts={loadPosts}
                     filterOption={filterOption}
                     ThisUser={ThisUser}
+                    MapViewOpen={MapViewOpen}
+                    setMapViewOpen={setMapViewOpen}
                 />
             </div>
             <div className="grid-bx-2">
                 <SideBar
+                    AllLocation={AllLocation}
                     ThisUser={ThisUser}
                     setThisUser={setThisUser}
                     loadPosts={loadPosts}
@@ -132,13 +113,14 @@ const MainPage = () => {
                 />
             </div>
             <div className="grid-bx-3">
-                <Posts2
+                <Posts
                     PageData={PageData}
                     setPageData={setPageData}
+                    AllLocation={AllLocation}
                     ThisUser={ThisUser}
                     loadPosts={loadPosts}
+                    MapViewOpen={MapViewOpen}
                 />
-                {/* <TestRedux /> */}
             </div>
             <div className="grid-bx-4">
                 <Pagination

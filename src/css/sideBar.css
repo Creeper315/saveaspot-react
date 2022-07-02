@@ -1,49 +1,132 @@
-
-.side-bar{
-    position: relative;
+#contain {
+    height: 100%;
+    width: 100%;
+    background-color: bisque;
     display: flex;
     flex-direction: column;
+    justify-content: stretch;
+    align-items: stretch;
+}
+
+#side-bar{
+    position: relative;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: stretch;
+    align-items: center;
+
+}
+
+#profile-contain {
+    --icon-pic-size: 115px;
+    --icon-name-height: 15px;
+    /* border: 1px solid green; */
+    width: 100%;
+    flex-basis: calc(4*var(--icon-name-height) + var(--icon-pic-size));
+    flex-shrink: 0;
+    flex-grow: 0;
+    display: flex;
+    justify-content: center;
     align-items: center;
 }
-
-.log-out-container{
+#profile-icon{
+    position: relative;
+    flex-grow: 0;
+    margin: auto;
+    width: var(--icon-pic-size);
+    height: var(--icon-pic-size);
+}
+#profile-icon img{
     width: 100%;
-    background-color: rgb(133, 87, 100);
-    justify-self: end;
-
+    height: 100%;
+    object-fit: cover;
+    border-radius: 20%;
+}
+#profile-icon h5{
+    position: absolute;
     text-align: center;
+    top: 110%;
+    left: 50%;
+    transform: translateX(-50%);
+    font-family: 'Courier New',
+    Courier,
+    monospace;
+    color: darkblue;
+    font-weight: bold;
+}
+#profile-icon img:hover{
+    box-shadow: 0 0 0 2px rgb(171, 81, 146);
 }
 
-.spinning-gear-contain{
-    --gs: 40px;
+.contact-line{
+    max-height: 45px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    flex-grow: 1;
+}
+
+.contact-line:hover{
+    background-color: gainsboro;
+}
+
+#contact-info{
+    border: 1px solid purple;
+    position: relative;
+    width: 90%;
+    border-radius: 13px;
+    padding: 10px 5px;
+    flex-basis: 145px;
+    flex-grow: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    justify-content: flex-start;
+}
+
+/* #contact-info p{
+    background-color: aquamarine;
+    font-family: 'Courier New', Courier, monospace;
+} */
+
+
+
+.gear-main {
+    --gs: 35px;
     width: var(--gs);
     height: var(--gs);
     cursor: pointer;
-    border: 1px solid blue;
-
+    /* border-radius: 50%; */
     position: absolute;
-    top: -13px;
-    right: -5px;
+    top: -20px;
+    right: -15px;
+    /* border: 2px solid pink; */
 }
 
-.spinning-gear-contain:hover{
-    animation: spin 5s linear infinite;
+.gear-main:hover .spinning-gear-contain{
+    animation: spin 3.5s linear infinite;
 }
 
+.gear-main:hover .spinning-gear {
+    animation: spin 2s cubic-bezier(0.075, 0.82, 0.165, 1) forwards,
+    popup 0.7s linear forwards;
+}
+
+.spinning-gear-contain{
+    width: 100%;
+    height: 100%;
+    /* border: 1px solid blue; */
+}
 .spinning-gear{
     width: calc(var(--gs) * 0.7);
     height: calc(var(--gs) * 0.7);
-    background-color: orange;
-
+    /* background-color: orange; */
+    color: purple;
     position: absolute;
     left: 0;
     bottom: 0;
 
-}
-.spinning-gear:hover{
-    /* animation: name duration timing-function delay iteration-count direction fill-mode; */
-    animation: 
-        spin 2s cubic-bezier(0.075, 0.82, 0.165, 1) forwards, popup 0.7s linear forwards;
 }
 
 @keyframes spin {
@@ -51,14 +134,11 @@
         transform: rotate(0deg);
     }
     to {
-        transform: rotate(359deg);
+        transform: rotate(230deg);
     }
 }
 
 @keyframes popup {
-    from{
-       
-    }
     50%{
         width: 100%;
         height: 100%;
@@ -69,82 +149,161 @@
     }
 }
 
-#profile-contain{
-    width: 100%;        
-}
-#profile-contain-2{
+.side-button{
     position: relative;
-    --ps: 137px;
-    width: var(--ps);
-    height: var(--ps);
-    border: 1px dotted red;
-    margin:auto;
-}
-
-#profile-contain-2 img{
-    object-fit: cover;
-}
-
-#profile-icon{
-    width: 100%;
-    height: 100%;
-    border-radius: 50%;
     cursor: pointer;
-    /* border: 1px dotted pink; */
-}
-#profile-icon:hover{
-    box-shadow: 0px 0px 0px 1px  palevioletred;
+    margin-top: 20px;
+    display: flex;
+    padding: 8px 15px;
+    justify-content: center;
+    align-items: center;
+
+    border: 1px solid aqua;
+    border-radius: 5px;
+    transition: all 50ms ease-out;
+    box-shadow: 0 0 5px 2px;
+
+    transition: background-color 200ms ease;
 }
 
-
-.profile-label{
-    font-family: 'Courier New', Courier, monospace;
-    color: darkblue;
-    font-weight: bold;
+.side-button:hover{
+    transform: scale(0.97);
+    box-shadow: 0 0 3px 1px;
+}
+/* font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;  really nice font*/
+.side-button span{
+    user-select: none;
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    font-weight: 200;
 }
 
-.left-bar-info-contain{
+.side-button:hover .toggle-switch{
+    border-width: 1px;
+}
+
+.toggle-switch{
+    position: absolute;
+    left: 50%;
+    top: 0;
+    background-color: aliceblue;
+    transform: translateX(-50%) translateY(-50%);
+    --switch-height: 23px;
+    --switch-width: 50px;
+    height: var(--switch-height);
+    width: var(--switch-width);
+    border-radius: var(--switch-height);
+    border: 2px solid darkslateblue;
+    display: flex;
+    align-items: center;
+}
+.side-button.is-active{
+    background-color: lightskyblue;
+}
+
+.toggle-switch-circle{
+    position: absolute;
+    left: calc(var(--switch-height)*0.1);
+    height: calc(var(--switch-height)*0.75);
+    width: calc(var(--switch-height)*0.75);
+    --circle-color: blueviolet;
+    background-color: var(--circle-color);
+    border-radius: 50%;
+    transition: all 200ms ease;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.toggle-switch-circle.is-active{
+    left: calc(var(--switch-width) - var(--switch-height))
+    /* right: calc(var(--switch-height)*0.1); */
+}
+
+.toggle-switch-check{
+    font-size: calc(var(--switch-height)*0.4);
+    color: var(--circle-color);
+    transition: color 200ms ease;
+}
+.toggle-switch-check.is-active{
+    color: white;
+}
+
+#create-post{
     position: relative;
-    border-radius: 15px;
-    border: 3px dashed;
     width: 80%;
-    padding: 13px 0;
-}
+    height: 100px;
+    flex-grow: 1;
+    border: 1px solid orange;
+    margin-top: 20px;
+    text-align: center;
+    border-radius: 10px;
 
-#contact-info-contain{
-    border-color: pink;
-}
-#contact-info-contain-2 {
-    width: 100%;
-    height: 100%;
-    overflow-x: scroll;
-}
-.contact-info-line{
-    word-wrap: normal;
-    margin: 10px 0;
-}
-
-#create-post-btn{
     display: flex;
-    flex-direction: column;
-    align-items: center;
+    /* flex-direction: column; */
+    justify-content: center;
+    /* align-items: center; */
+    transition: all 200ms ease;
 }
+#create-post:hover{
+    border-width: 2px;
 
-#cross-btn{
-    background-color: skyblue;
-    width: 50px;
-    height: 50px;
-    border-radius: 50%;
-    border: 1px solid green;
+}
+#create-post span{
+    position: absolute;
+    user-select: none;
+    font-family: Cambria, Cochin, Georgia, Times, serif;
+    font-weight: 200;
+    top: 11%;
+}
+#create-post-button{
     cursor: pointer;
+    position: absolute;
+    bottom: 11%;
+    cursor: pointer;
+    width: 65px;
+    height: 65px;
+    border-radius: 50%;
+    border: 1px solid pink;
 
     display: flex;
-    align-items: center;
     justify-content: center;
 }
+#create-post-cross{
+    transform: rotate(45deg) scale(1.1);
+    color: orange;
+    position: absolute;
+    bottom: 20%;
+    transition: all 200ms ease-in-out;
+}
+#create-post:hover #create-post-cross{
+    bottom: 50%;
+    transform: translateY(65%) scale(1.5) rotate(calc(45deg + 90deg));
+    color: gray;
+}
 
-#cross-btn img{
-    width: 60%;
-    height: 60%;
-    transform: rotate(-45deg);
+
+#log-out-button{
+    cursor: pointer;
+    margin: 20px 0;
+    width: 100px;
+    height: 33px;
+    background-color: aqua;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#log-out-button span{
+    user-select: none;
+    font-family: Cambria,Cochin,Georgia,Times,serif;
+    font-weight: 900;
+    color: blue;
+}
+
+.test-div{
+    width: 70px;
+    height: 100px;
+}
+.test-div:hover > button{
+    background-color: green;
 }

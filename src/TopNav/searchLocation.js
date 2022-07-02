@@ -1,6 +1,5 @@
 import { default as ReactSelect } from 'react-select';
 import { components } from 'react-select';
-import { locations } from './data';
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 import a from '../img/lin.jpg';
@@ -22,25 +21,10 @@ const Option = (props) => {
     );
 };
 
-const SearchLocation = ({ loadPosts, filterOption }) => {
+const SearchLocation = ({ loadPosts, filterOption, AllLocation }) => {
     const [Selected, setSelected] = useState('');
-    const [AllLocation, setAllLocation] = useState([]);
-    // const [AllOptions, setAllOptions] = useState();
-    // console.log('LOCATION ft opt ', filterOption.current);
-    useEffect(() => {
-        axios({
-            method: 'GET',
-            url: 'api/getlocation',
-        }).then((e) => {
-            // setAllOptions(e.data.valueLabelPair);
-            // setAllLocation(e.data.listLoc);
-            setAllLocation(e.data);
-            // console.log('all Loc - ', e.data);
-        });
-    }, []);
 
     let onMenuClose = () => {
-        // query sql to select on these locations
         filterOption.current.isUpcoming = false;
         filterOption.current.isSaved = false;
         loadPosts();
@@ -66,11 +50,13 @@ const SearchLocation = ({ loadPosts, filterOption }) => {
             components={{
                 Option,
             }}
+            // menuIsOpen={true}
             onChange={handleChange}
             allowSelectAll={true}
             value={Selected}
             onMenuClose={onMenuClose}
             noOptionsMessage={() => "you're beautiful"}
+            placeholder="Search By Location.."
             onFocus={(e) => {
                 // console.log('on fcs ', e);
             }}

@@ -1,6 +1,6 @@
 import { default as ReactSelect } from 'react-select';
 import { components } from 'react-select';
-import { activity } from './data';
+import { activities } from './data';
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 import a from '../img/lin.jpg';
@@ -54,7 +54,7 @@ const SearchActivity = ({ loadPosts, filterOption }) => {
     return (
         <ReactSelect
             className="multi-select"
-            options={activity}
+            options={activities}
             value={Selected}
             onChange={handleChange}
             onMenuClose={onMenuClose}
@@ -69,6 +69,7 @@ const SearchActivity = ({ loadPosts, filterOption }) => {
             closeMenuOnSelect={false}
             hideSelectedOptions={false}
             allowSelectAll={true}
+            placeholder="Search By Event Type.."
         />
     );
 };

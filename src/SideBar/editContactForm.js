@@ -45,7 +45,7 @@ const EditContactForm = ({
                     <FormGroup>
                         <Label>Email</Label>
                         <Input
-                            // value={email.current}
+                            value={email.current}
                             onChange={(e) => {
                                 email.current = e.target.value;
                             }}
@@ -55,7 +55,7 @@ const EditContactForm = ({
                     <FormGroup>
                         <Label>Phone</Label>
                         <Input
-                            // value={phone.current}
+                            value={phone.current}
                             onChange={(e) => {
                                 phone.current = e.target.value;
                             }}

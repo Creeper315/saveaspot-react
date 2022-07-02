@@ -1,12 +1,31 @@
 import a from '../img/lin.jpg';
 import { useNavigate } from 'react-router-dom';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Parent from './parent';
+import GoogleLoginComponent from './googleLogin';
 
 const Welcome = () => {
     const navi = useNavigate();
     console.log('Welcome rendered!');
     const [arr, setarr] = useState([1, 2, 3, 4, 5]);
+
+    function doRes(res) {
+        console.log('jwt is', res.credential);
+    }
+
+    useEffect(() => {
+        /* global google*/
+        google.accounts.id.initialize({
+            client_id:
+                '1016702716489-u2fjc3us998nqb1mt8c01uglpt42dshl.apps.googleusercontent.com',
+            callback: doRes,
+        });
+        google.accounts.id.renderButton(document.getElementById('signInDiv'), {
+            theme: 'outline',
+            size: 'large',
+        });
+        google.accounts.id.prompt();
+    }, []);
 
     return (
         <div>
@@ -42,6 +61,8 @@ const Welcome = () => {
                 show arr
             </button>
             {/* {<Parent />} */}
+            {/* <GoogleLoginComponent /> */}
+            <div id="signInDiv"></div>
         </div>
     );
 };

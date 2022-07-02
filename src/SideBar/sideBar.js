@@ -1,14 +1,27 @@
 import a from '../img/lin.jpg';
 import cross from '../img/cross.png';
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import '../css/sideBar.css';
 import Profile from './profile';
 import EditContactForm from './editContactForm';
 import CreatePostForm from './CreatePostForm';
+import SpinGear from './spinGear';
+import SideButton from './sideButton';
 import axios from 'axios';
+import { MdEmail } from 'react-icons/md';
+import { BsFillTelephoneFill } from 'react-icons/bs';
+import { ImCross } from 'react-icons/im';
 
-const SideBar = ({ ThisUser, setThisUser, loadPosts, filterOption }) => {
+// import $ from 'jquery';
+
+const SideBar = ({
+    ThisUser,
+    setThisUser,
+    loadPosts,
+    filterOption,
+    AllLocation,
+}) => {
     // id: 1;
     // username: 'richard';
     // email: null;
@@ -33,70 +46,84 @@ const SideBar = ({ ThisUser, setThisUser, loadPosts, filterOption }) => {
         navigate('/login');
     } //map: AIzaSyD-F9PkcMOHcDp5Zht0WTEP20tWLj0BDAk
 
+    function clickUpcoming() {
+        if (filterOption.current.isUpcoming === true) {
+            filterOption.current.isUpcoming = false;
+            loadPosts();
+            return;
+        }
+        filterOption.current.isUpcoming = true;
+        filterOption.current.isSaved = false;
+        loadPosts();
+    }
+
+    function clickSaved() {
+        if (filterOption.current.isSaved === true) {
+            filterOption.current.isSaved = false;
+            loadPosts();
+            return;
+        }
+        filterOption.current.isSaved = true;
+        filterOption.current.isUpcoming = false;
+        loadPosts();
+    }
+
     return (
-        <div className="side-bar">
-            {/* <img src={a} alt="profile " className="user-profile" /> */}
+        <div id="side-bar">
             <Profile ThisUser={ThisUser} setThisUser={setThisUser} />
-            <h4 className="profile-label">{ThisUser.username}</h4>
-            <div id="contact-info-contain" className="left-bar-info-contain">
-                <div
-                    className="spinning-gear-contain"
-                    onClick={() => toggleEdit()}
-                >
-                    <div className="spinning-gear">ccc</div>
-                </div>
-                <div id="contact-info-contain-2">
-                    <div className="contact-info-line">
-                        <span className="profile-label">Email:</span>
-                        <span>{ThisUser.email || ''}</span>
-                    </div>
-                    <div className="contact-info-line">
-                        <span className="profile-label">Phone:</span>
-                        <span>{ThisUser.phone || ''}</span>
-                    </div>
-                </div>
-            </div>
 
-            <div
-                className="left-bar-info-contain"
-                style={{ borderColor: 'blue' }}
-            >
-                <button
-                    onClick={() => {
-                        filterOption.current.isUpcoming = true;
-                        filterOption.current.isSaved = false;
-                        loadPosts();
+            <div id="contact-info">
+                <SpinGear clickFun={() => toggleEdit()} />
+                <p
+                    style={{
+                        padding: '5px',
+                        backgroundColor: 'antiquewhite',
+                        margin: 0,
                     }}
                 >
-                    My Upcoming Events
-                </button>
-                <button
-                    onClick={() => {
-                        filterOption.current.isUpcoming = false;
-                        filterOption.current.isSaved = true;
-                        loadPosts();
-                    }}
-                >
-                    Saved Posts
-                </button>
-            </div>
-
-            <div id="create-post-btn">
-                <p>Create Activity Post</p>
-                <div
-                    id="cross-btn"
-                    onClick={() => {
-                        toggleCreate();
-                    }}
-                >
-                    <img src={cross} alt="" />
+                    CONTACT INFO
+                </p>
+                <div className="contact-line">
+                    <MdEmail
+                        style={{ marginLeft: '15px', marginRight: '15px' }}
+                    />
+                    <span>{ThisUser.email || ''}</span>
+                </div>
+                <div className="contact-line">
+                    <BsFillTelephoneFill
+                        style={{ marginLeft: '15px', marginRight: '15px' }}
+                    />
+                    <span>{ThisUser.phone || ''}</span>
                 </div>
             </div>
 
-            <div className="log-out-container">
-                <button className="log-out" onClick={() => handleLogOut()}>
-                    Log Out
-                </button>
+            <SideButton
+                text="View Upcoming Event"
+                activeFun={clickUpcoming}
+                isActive={filterOption.current.isUpcoming}
+            />
+            <SideButton
+                text="View Saved Event"
+                activeFun={clickSaved}
+                isActive={filterOption.current.isSaved}
+            />
+
+            {/* <div className="test-div">
+                <button>hi</button>
+            </div>
+            <div className="test-div">
+                <button>hi2</button>
+            </div> */}
+
+            <div id="create-post">
+                <span>Create Event Post</span>
+                <div id="create-post-button" onClick={toggleCreate}>
+                    <ImCross id="create-post-cross" />
+                </div>
+            </div>
+
+            <div id="log-out-button" onClick={() => handleLogOut()}>
+                <span>Log Out</span>
             </div>
 
             {EditModalOpen && (
@@ -113,6 +140,7 @@ const SideBar = ({ ThisUser, setThisUser, loadPosts, filterOption }) => {
                     setThisUser={setThisUser}
                     CreateModalOpen={CreateModalOpen}
                     toggleCreate={toggleCreate}
+                    AllLocation={AllLocation}
                 />
             )}
         </div>

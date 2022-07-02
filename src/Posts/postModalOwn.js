@@ -2,18 +2,22 @@ import { Modal, ModalHeader, ModalFooter, ModalBody, Button } from 'reactstrap';
 import { Form, FormGroup, Input, Label } from 'reactstrap';
 import { useEffect, useState, Fragment } from 'react';
 // import { Wrapper, Status } from '@googlemaps/react-wrapper';
-import MyMap from './mymap';
+import SingleMap from './singleMap';
 import axios from 'axios';
+import ModalSide from './modalSide';
+import ModalMap from './modalMap';
 
 const PostModalOwn = ({
     // 可以 Edit, Delete, Close, ViewMap
     PageData,
     setPageData,
     ModalOpen,
+    MapViewOpen,
     toCloseModal,
     ActiveIdx,
-    getDeleteBtn,
+    clickDelete,
 }) => {
+    const isOtherPost = false;
     const p = PageData[ActiveIdx];
     // console.log('whats p ', p);
     // const [username, setusername] = useState(p.username);
@@ -23,6 +27,8 @@ const PostModalOwn = ({
     const [email, setemail] = useState('');
     const [phone, setphone] = useState('');
     const [MapOpen, setMapOpen] = useState(false);
+
+    const [SeeMap, setSeeMap] = useState(false);
 
     useEffect(() => {
         // get * from user where username = p.username
@@ -59,33 +65,71 @@ const PostModalOwn = ({
         return { postObj: r, userObj: u };
     }
 
-    function renderSaveEditButton() {
-        let click = () => {
-            console.log('???????????????');
-            axios({
-                method: 'post',
-                url: 'api/postedit',
-                data: newUpdateObj(),
-            }).then((e) => {
-                console.log('here we are', e.status);
-                if (e.status === 200) {
-                    // Also, modify PostData at ActiveIdx
-                    p.locname = locname;
-                    p.time = time;
-                    p.description = description;
-                    console.log('new p', p);
-                    PageData[ActiveIdx] = { ...p };
-                    setPageData([...PageData]);
-                    toCloseModal();
-                }
-            });
-        };
-        return <Button onClick={click}>Save</Button>;
+    function clickSave() {
+        axios({
+            method: 'post',
+            url: 'api/postedit',
+            data: newUpdateObj(),
+        }).then((e) => {
+            // console.log('here we are', e.status);
+            if (e.status === 200) {
+                // Also, modify PostData at ActiveIdx
+                p.locname = locname;
+                p.time = time;
+                p.description = description;
+                // console.log('new p', p);
+                PageData[ActiveIdx] = { ...p };
+                setPageData([...PageData]);
+                toCloseModal();
+            }
+        });
     }
+
+    // function renderSaveEditButton() {
+    //     let click = () => {
+    //         axios({
+    //             method: 'post',
+    //             url: 'api/postedit',
+    //             data: newUpdateObj(),
+    //         }).then((e) => {
+    //             console.log('here we are', e.status);
+    //             if (e.status === 200) {
+    //                 // Also, modify PostData at ActiveIdx
+    //                 p.locname = locname;
+    //                 p.time = time;
+    //                 p.description = description;
+    //                 console.log('new p', p);
+    //                 PageData[ActiveIdx] = { ...p };
+    //                 setPageData([...PageData]);
+    //                 toCloseModal();
+    //             }
+    //         });
+    //     };
+    //     return <Button onClick={click}>Save</Button>;
+    // }
 
     return (
         <Modal isOpen={ModalOpen} toggle={toCloseModal}>
-            <ModalHeader toggle={toCloseModal}>Your Own Post</ModalHeader>
+            <ModalSide
+                {...{
+                    p,
+                    isOtherPost,
+                    toCloseModal,
+                    MapViewOpen,
+                    SeeMap,
+                    setSeeMap,
+                    clickSave,
+                    clickDelete,
+                }}
+            />
+            <ModalHeader toggle={toCloseModal}>Event</ModalHeader>
+            {/* <ModalMap
+                SeeMap={SeeMap}
+                locpic={p.locp}
+                lat={p.lat}
+                long={p.long}
+            /> */}
+            {/* {!MapViewOpen && <SingleMap zoom={17} />} */}
             <ModalBody>
                 <img
                     style={{ width: '100px', height: '100px' }}
@@ -141,7 +185,7 @@ const PostModalOwn = ({
                 <img src={p.locp} alt={'location '}></img>
                 <img src={p.postp} alt={'seat detail '}></img>
             </ModalBody>
-            <ModalFooter>
+            {/* <ModalFooter>
                 {
                     // Buttons goes here
                 }
@@ -152,14 +196,14 @@ const PostModalOwn = ({
                         toggle={toggleMap}
                     >
                         <ModalHeader toggle={toggleMap}>
-                            <MyMap locname={p.locName} />
+                            <SingleMap locname={p.locname} />
                         </ModalHeader>
                     </Modal>
                 )}
                 {renderSaveEditButton()}
                 {getDeleteBtn(ActiveIdx)}
                 <Button onClick={toCloseModal}>CLose</Button>
-            </ModalFooter>
+            </ModalFooter> */}
         </Modal>
     );
 };

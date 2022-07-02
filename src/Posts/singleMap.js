@@ -8,23 +8,35 @@ import {
 } from '@react-google-maps/api';
 import lin from '../img/lin.jpg';
 
-const MyMap = ({ lat, long, locname, locp }) => {
-    // locname: Location name.  locp: Location photo
+const SingleMap = ({ lat, long, zoom }) => {
+    console.log(lat, long, zoom);
+    // Main Map: 预先设定好 default lat lang 为 UBC 中心
+    // 打开 Map 的时候，再 axios 拿到当前页面的 post 的 lat long？
+
+    // Single Map location： 打开 Post Modal 的时候，就开始 axios 拿 Location 的 Lat Long。
+    // Map 中心略放大一点点，
+    // Marker 点开：是 Location 的 Picture 然后还有左下角地名。
+    const defaultZoom = 15.7;
+    const defaultLat = 49.2650167;
+    const defaultLon = -123.249627;
 
     if (lat === undefined) {
-        lat = 49.259765;
+        lat = defaultLat;
     }
     if (long === undefined) {
-        long = -123.2424953;
+        long = defaultLon;
+    }
+    if (zoom === undefined) {
+        zoom = defaultZoom;
     }
     let myPosition = { lat: lat, lng: long };
-    const zoom = 17;
 
     const [WindowOpen, setWindowOpen] = useState(false);
 
     const mapStyles = {
-        height: '400px',
-        width: '500px',
+        height: '100%',
+        width: '100%',
+        borderRadius: '10px',
     };
 
     function showWindow() {
@@ -47,7 +59,7 @@ const MyMap = ({ lat, long, locname, locp }) => {
                     // 也可以用 array.map() 来制作多个 Marker ！ Location 也是
                     <Marker
                         position={myPosition}
-                        onClick={() => showWindow(true)}
+                        // onClick={() => showWindow(true)}
                     />
                 }
                 {WindowOpen && (
@@ -57,7 +69,7 @@ const MyMap = ({ lat, long, locname, locp }) => {
                         onCloseClick={() => showWindow(false)}
                     >
                         <div style={imgDiv}>
-                            <p>{locname}</p>
+                            <p>{'wowow'}</p>
                             <img src={lin} alt={'location'} />
                         </div>
                     </InfoWindow>
@@ -67,4 +79,4 @@ const MyMap = ({ lat, long, locname, locp }) => {
     );
 };
 
-export default MyMap;
+export default SingleMap;

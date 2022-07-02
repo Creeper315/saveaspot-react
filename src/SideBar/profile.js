@@ -3,16 +3,18 @@ import a from '../img/lin.jpg';
 import { Fragment, useRef, useState, useEffect } from 'react';
 import axios from 'axios';
 import { getPicUrl, toProfileCloud, imageExist } from '../imgHelper';
+import SpinGear from './spinGear';
 
 const Profile = ({ ThisUser, setThisUser }) => {
     const [ImgUrl, setImgUrl] = useState(a);
     // console.log('Profile Render ', ThisUser);
 
     useEffect(() => {
-        console.log('Profile Effect', ThisUser.userpic);
-        if (ThisUser.userpic !== undefined) {
+        // console.log('Profile Effect', ThisUser);
+        if (ThisUser.userpic != null) {
+            // let imgurl = JSON.parse(ThisUser.userpic);
+            // console.log('parsed url', imgurl);
             imageExist(ThisUser.userpic).then((e) => {
-                console.log('Profile Then', e);
                 if (e !== false) {
                     setImgUrl(e);
                 }
@@ -29,12 +31,7 @@ const Profile = ({ ThisUser, setThisUser }) => {
         let url = URL.createObjectURL(f);
         setImgUrl(url);
 
-        toProfileCloud(
-            fileData,
-            ThisUser.username,
-            ThisUser.userpic,
-            setThisUser
-        );
+        toProfileCloud(fileData, ThisUser, setThisUser);
     }
 
     // function toCloud(e) {
@@ -69,20 +66,11 @@ const Profile = ({ ThisUser, setThisUser }) => {
                 ref={imgUploader}
                 style={{ display: 'none' }}
             />
-            {/* <button type="submit" onClick={toCloud}>
-                Submit img
-            </button> */}
             <div id="profile-contain">
-                <div id="profile-contain-2">
-                    <div
-                        className="spinning-gear-contain"
-                        onClick={() => {
-                            imgUploader.current.click();
-                        }}
-                    >
-                        <div className="spinning-gear">ccc</div>
-                    </div>
-                    <img src={ImgUrl} alt="profile icon" id="profile-icon" />
+                <div id="profile-icon">
+                    <SpinGear clickFun={() => imgUploader.current.click()} />
+                    <img src={ImgUrl} alt="profile icon" />
+                    <h5>{ThisUser.username}</h5>
                 </div>
             </div>
         </Fragment>

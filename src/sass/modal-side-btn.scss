@@ -1,0 +1,137 @@
+$h-1: 35px;
+$h-2: 27px;
+$border-1: 3px solid black;
+$deg: 0deg;
+$b-w: 2px;
+$b-r: 20px;
+$btn-width: 50px;
+$btn-height: 50px;
+$btn-extend: 2.3;
+$bk-size: $btn-width * $btn-extend + 2 * $b-w;
+$spin-speed: 3300ms;
+
+.modal-side-contain{
+    border: 1px dashed red;
+    position: absolute;
+    left: 100%;
+    top: 400px;
+    z-index: 1;
+    // display: flex;
+    // flex-direction: column;
+    // flex-grow: 0;
+    // background-color: antiquewhite;
+    // transform: translateX(-13px);
+}
+
+.modal-side-cover{
+    width: fit-content;   // 这一行一定要加上，不然 width 就是 auto，parent 变宽，它也变宽。
+    border: 1px dashed brown;
+    border-radius: $b-r;
+    margin-bottom: 10px;
+    transform: translateX(-20px);
+    .toggle-switch{
+        z-index: 1;
+        opacity: 0;
+        transition: opacity 200ms 150ms;
+    }
+    &:hover {
+        .toggle-switch {
+            opacity: 1;
+        }
+    }
+}
+
+.modal-side-mask {
+    cursor: pointer;
+    border: $b-w solid green;
+    clip-path: inset(0px round $btn-height);
+    transition: width 400ms, background 200ms;
+
+    &:hover {
+        .modal-side-btn {
+            width: calc($btn-extend * $btn-width);
+        }
+        &::after {
+            animation: none;
+            background: rgb(135, 62, 151);
+        }
+    }
+    
+    &::after{
+        content: '';
+        position: absolute;
+        top: calc(50% - 0.5*$bk-size);
+        left: calc(50% - 0.5*$bk-size);
+        // transform: translate(-50%, -50%);
+        width: $bk-size;
+        height: $bk-size;
+        z-index: -1;
+        background: conic-gradient(black 0deg, white 90deg, white 111deg, black 110deg);
+    
+        animation: border-spin $spin-speed infinite linear;
+    }
+}
+
+@keyframes border-spin {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+.modal-side-btn{
+    position: relative;
+    border: 1px dashed blue;
+    width: $btn-width;
+    height: $btn-height;
+    border-radius: $btn-height;
+    cursor: pointer;
+    background-color: antiquewhite;
+    transition: width 200ms cubic-bezier(0.075, 0.82, 0.165, 1), background-color 200ms;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    span {
+        position: absolute;
+        left: 0.9 * $btn-height;
+        opacity: 0;
+        word-wrap: nowrap;
+        // transition: opacity 150ms linear 150ms;
+    }
+
+    &:hover{
+        span {
+            animation: fadein 150ms linear forwards 150ms;
+        }
+    }
+    .modal-side-icon {
+        position: absolute;
+        width: $btn-height - 1 * $b-w;
+        height: $btn-height - 1 * $b-w;
+        top: 0;
+        left: 0;
+        border: 1px solid green;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+}
+
+@keyframes fadein {
+    from{
+        opacity: 0;
+    }
+    to{
+        opacity: 1;
+    }
+}
+
+.modal-side-btn.is-active{
+    background-color: rgb(223, 210, 70);
+}
+
+
