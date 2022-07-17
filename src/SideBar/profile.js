@@ -9,16 +9,33 @@ const Profile = ({ ThisUser, setThisUser }) => {
     const [ImgUrl, setImgUrl] = useState(a);
     // console.log('Profile Render ', ThisUser);
 
+    function IsJsonString(str) {
+        let r;
+        try {
+            r = JSON.parse(str);
+        } catch (e) {
+            return false;
+        }
+        return r;
+    }
+
     useEffect(() => {
         // console.log('Profile Effect', ThisUser);
         if (ThisUser.userpic != null) {
             // let imgurl = JSON.parse(ThisUser.userpic);
             // console.log('parsed url', imgurl);
-            imageExist(ThisUser.userpic).then((e) => {
-                if (e !== false) {
-                    setImgUrl(e);
-                }
-            });
+
+            // imageExist(ThisUser.userpic).then((e) => {
+            //     if (e !== false) {
+            //         setImgUrl(e);
+            //     }
+            // });
+            let isJson = IsJsonString(ThisUser.userpic);
+            if (!isJson) {
+                setImgUrl(ThisUser.userpic);
+            } else {
+                setImgUrl(isJson.url);
+            }
         }
     }, [ThisUser.userpic]);
 

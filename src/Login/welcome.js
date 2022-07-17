@@ -6,7 +6,8 @@ import GoogleLoginComponent from './googleLogin';
 
 const Welcome = () => {
     const navi = useNavigate();
-    console.log('Welcome rendered!');
+    navi('/login');
+    // console.log('Welcome rendered!');
     const [arr, setarr] = useState([1, 2, 3, 4, 5]);
 
     function doRes(res) {

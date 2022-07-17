@@ -23,8 +23,6 @@ const PostModalOther = ({
     const [SeeMap, setSeeMap] = useState(false);
     const Lat = useRef(0);
     const Lng = useRef(0);
-    const [Email, setEmail] = useState('');
-    const [Phone, setPhone] = useState('');
 
     useEffect(() => {
         axios({
@@ -34,17 +32,6 @@ const PostModalOther = ({
         }).then((e) => {
             if (e.status === 200) {
                 setIsFavorite(e.data);
-            }
-        });
-        axios({
-            method: 'get',
-            url: '/api/getuser',
-            params: { username: p.username },
-        }).then((e) => {
-            if (e.status === 200) {
-                // console.log('nm', e.data);
-                setEmail(e.data.email || '...');
-                setPhone(e.data.phone || '...');
             }
         });
     }, []);
@@ -90,7 +77,7 @@ const PostModalOther = ({
             <ModalHeader toggle={toCloseModal}>Event</ModalHeader>
             <ModalMap
                 SeeMap={SeeMap}
-                locpic={p.locpic}
+                locpic={p.locp}
                 lat={p.lat}
                 long={p.long}
             />
@@ -124,10 +111,6 @@ const PostModalOther = ({
                         <Input value={p.locname} readOnly />
                     </FormGroup>
                     <FormGroup>
-                        <Label>Activity</Label>
-                        <Input value={p.activity} readOnly />
-                    </FormGroup>
-                    <FormGroup>
                         <Label>Time</Label>
                         <Input value={p.time} readOnly />
                     </FormGroup>
@@ -137,14 +120,23 @@ const PostModalOther = ({
                     </FormGroup>
                     <FormGroup>
                         <Label>Email</Label>
-                        <Input value={Email} readOnly />
+                        <Input value={p.email} readOnly />
                     </FormGroup>
                     <FormGroup>
                         <Label>Phone</Label>
-                        <Input value={Phone} readOnly />
+                        <Input value={p.phone} readOnly />
+                    </FormGroup>
+                    <FormGroup>
+                        <Label>Reward</Label>
+                        <Input value={p.reward} readOnly />
+                    </FormGroup>
+                    <FormGroup>
+                        <Label>Helper</Label>
+                        <Input value={p.helper} readOnly />
                     </FormGroup>
                 </Form>
-                {/* <img src={p.locp} alt={'location '}></img> */}
+                <img src={p.locp} alt={'location '}></img>
+                <img src={p.postp} alt={'seat detail '}></img>
             </ModalBody>
             {/* <ModalFooter>
                 {getJoinBtn(ActiveIdx)}

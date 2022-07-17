@@ -26,6 +26,27 @@ const LoginMain = () => {
         return 'api/register';
     }
 
+    function googleSubmit(obj) {
+        // console.log('hiii', obj);
+        let token = obj.credential;
+        let clientId = obj.clientId;
+
+        axios({
+            method: 'post',
+            url: 'api/googlein',
+            data: { token, clientId },
+        })
+            .then((e) => {
+                // console.log('whats e data', e.data);
+                if (e.status === 200) {
+                    navigate('/main', { state: e.data });
+                }
+            })
+            .catch((e) => {
+                console.log(e);
+            });
+    }
+
     function onsubmit() {
         axios({
             method: 'POST',
@@ -36,7 +57,7 @@ const LoginMain = () => {
             },
         })
             .then((e) => {
-                console.log('submit result ', e.status, e.data); // 现在这个 e.data 是登录进来的 user 的 object
+                // console.log('submit result ', e.status, e.data); // 现在这个 e.data 是登录进来的 user 的 object
                 // email: null;
                 // id: 2;
                 // phone: null;
@@ -58,6 +79,7 @@ const LoginMain = () => {
                 password={password}
                 isLogin={isLogin}
                 onsubmit={onsubmit}
+                googleSubmit={googleSubmit}
             />
         </div>
     );

@@ -29,19 +29,23 @@ const SearchActivity = ({ loadPosts, filterOption }) => {
 
     let onMenuClose = () => {
         // query sql to select on these locations
-        filterOption.current.isUpcoming = false;
-        filterOption.current.isSaved = false;
-        loadPosts();
+        // filterOption.current.isUpcoming = false;
+        // filterOption.current.isSaved = false;
+        // loadPosts();
     };
 
     let handleChange = (list) => {
-        console.log('changed ', list);
+        // console.log('changed ', list);
 
         setSelected(list);
 
         filterOption.current.listActivity = list.map((e) => {
             return e.value;
         });
+
+        filterOption.current.isUpcoming = false;
+        filterOption.current.isSaved = false;
+        loadPosts();
     };
 
     // const filterOption = useRef({

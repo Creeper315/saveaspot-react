@@ -170,3 +170,11 @@
     line-height: var(--hh);
     font-weight: 900;
 }
+
+#signInDiv{
+    position: absolute;
+    border-radius: 5px;
+    left: 50%;
+    transform: translateX(-50%) scale(0.9);
+    margin-top: 30px;
+}

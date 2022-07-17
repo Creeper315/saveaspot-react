@@ -15,7 +15,10 @@
     flex-direction: column;
     justify-content: stretch;
     align-items: center;
-
+    min-height: 0;
+    min-width: 0;
+    border: 2px solid orange;
+    overflow: scroll;
 }
 
 #profile-contain {
@@ -54,29 +57,41 @@
     monospace;
     color: darkblue;
     font-weight: bold;
+    white-space: nowrap;
 }
+
 #profile-icon img:hover{
     box-shadow: 0 0 0 2px rgb(171, 81, 146);
 }
 
 .contact-line{
-    max-height: 45px;
+    height: 45px;
     border-radius: 10px;
     display: flex;
     align-items: center;
     flex-grow: 1;
 }
 
-.contact-line:hover{
-    background-color: gainsboro;
+.contact-line div{
+    width: 28px;
+    height: 45px;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    /* border: 1px solid */
+}
+.contact-line span{
+    overflow: scroll;
 }
 
 #contact-info{
+    margin-top: 20px;
     border: 1px solid purple;
     position: relative;
     width: 90%;
     border-radius: 13px;
-    padding: 10px 5px;
+    padding: 10px 0px;
     flex-basis: 145px;
     flex-grow: 0;
     display: flex;
@@ -84,12 +99,6 @@
     align-items: stretch;
     justify-content: flex-start;
 }
-
-/* #contact-info p{
-    background-color: aquamarine;
-    font-family: 'Courier New', Courier, monospace;
-} */
-
 
 
 .gear-main {
@@ -232,7 +241,9 @@
     position: relative;
     width: 80%;
     height: 100px;
-    flex-grow: 1;
+    flex-grow: 0.5;
+    flex-basis: 110px;
+    flex-shrink: 0;
     border: 1px solid orange;
     margin-top: 20px;
     text-align: center;
@@ -246,7 +257,6 @@
 }
 #create-post:hover{
     border-width: 2px;
-
 }
 #create-post span{
     position: absolute;
@@ -260,13 +270,17 @@
     position: absolute;
     bottom: 11%;
     cursor: pointer;
-    width: 65px;
-    height: 65px;
+    width: 55px;
+    height: 55px;
     border-radius: 50%;
     border: 1px solid pink;
 
     display: flex;
     justify-content: center;
+    background-color: aliceblue;
+}
+#create-post-button:hover{
+    background-color: rgb(206, 212, 217);
 }
 #create-post-cross{
     transform: rotate(45deg) scale(1.1);
@@ -291,6 +305,12 @@
     display: flex;
     justify-content: center;
     align-items: center;
+
+    transition: box-shadow 300ms cubic-bezier(0, 1.74, .85, 1.08);
+    box-shadow: 0 0 4px 2px;
+}
+#log-out-button:hover{
+    box-shadow: 0 0 10px 4px;
 }
 
 #log-out-button span{

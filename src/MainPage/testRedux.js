@@ -8,7 +8,7 @@ import {
     setHelpedByMe,
     setOwnPost,
 } from '../Redux/Reducer/postReducer';
-console.log('what is set', setLocation);
+// console.log('what is set', setLocation);
 
 const TestRedux = () => {
     let disp = useDispatch();
@@ -40,7 +40,7 @@ const TestRedux = () => {
             <button onClick={() => sLocation(arr)}>s loc</button>
             <button
                 onClick={() => {
-                    console.log(get);
+                    // console.log(get);
                 }}
             >
                 Check

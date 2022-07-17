@@ -61,7 +61,7 @@ export async function toProfileCloud(fileData, thisUser, setThisUser) {
 // select * from user where username = "Richard";
 export function imageExist(picture_string) {
     let imgUrl = getPicUrl(picture_string);
-    console.log('hehrhere', imgUrl);
+    // console.log('hehrhere', imgUrl);
     return axios({
         method: 'get',
         url: imgUrl,
@@ -70,7 +70,7 @@ export function imageExist(picture_string) {
             return imgUrl;
         })
         .catch((e) => {
-            console.log('exist img', e);
+            // console.log('exist img', e);
             return false;
         });
 }

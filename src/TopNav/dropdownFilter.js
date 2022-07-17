@@ -41,7 +41,7 @@ const DropdownFilter = ({ loadPosts, filterOption, ThisUser }) => {
         <div>
             <select
                 onChange={(e) => {
-                    console.log('change', e.target.value);
+                    // console.log('change', e.target.value);
                     onSelect(e.target.value);
                 }}
             >

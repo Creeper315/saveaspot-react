@@ -40,7 +40,6 @@ const CreatePostForm = ({
         };
         axios.post('/api/postcreate', postObj).then((e) => {
             if (e.status === 200) {
-                console.log('create success');
                 toggleCreate();
             }
         });

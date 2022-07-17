@@ -90,7 +90,7 @@ const Posts = ({
                 url: '/api/userjoin',
                 data: { postid, curppl, toJoin },
             }).then((e) => {
-                console.log('join then ', e);
+                // console.log('join then ', e);
                 if (e.status === 200) {
                     if (toJoin) {
                         PageData[idx].btn = 'Leave';
@@ -139,7 +139,7 @@ const Posts = ({
             return null;
         }
         let click = () => {
-            console.log('delete called', p);
+            // console.log('delete called', p);
             axios({
                 method: 'post',
                 url: '/api/postdelete',
@@ -158,13 +158,14 @@ const Posts = ({
             return null;
         }
         if (PageData[ActiveIdx] == null) {
-            console.log('!!! err. no such post');
+            // console.log('!!! err. no such post');
         }
-        console.log(
-            'this post data-- my username',
-            PageData[ActiveIdx],
-            ThisUser.username
-        );
+        // console.log(
+        //     'this post data-- my username',
+        //     PageData[ActiveIdx],
+        //     ThisUser.username
+        // );
+        // console.log(PageData[ActiveIdx].username, ThisUser.username);
         if (PageData[ActiveIdx].username === ThisUser.username) {
             return (
                 <PostModalOwn
@@ -179,7 +180,6 @@ const Posts = ({
                 />
             );
         } else {
-            console.log('over here');
             return (
                 <PostModalOther
                     PageData={PageData}

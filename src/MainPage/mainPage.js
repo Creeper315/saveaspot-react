@@ -4,18 +4,31 @@ import SideBar from '../SideBar/sideBar';
 import Posts from '../Posts/posts';
 import Pagination from '../Pagination/pagination';
 import { useState, useEffect, useRef } from 'react';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
+import { useCookies } from 'react-cookie';
 
 import axios from 'axios';
 
 const MainPage = () => {
     // console.log('Main Page render');
+    const [cookies, setCookie, removeCookie] = useCookies();
+
+    // let ccc = document.cookie;
+    // console.log('CCC', ccc, cookies);
+    // removeCookie('ACCESS_TOKEN');
+    // removeCookie('REFRESH_TOKEN');
+    // console.log('2 main page whats cookie', ccc, cookies, cookies.ACCESS_TOKEN);
+    const navigate = useNavigate();
     const LOCATION = useLocation();
+
     const filterOption = useRef({
         listLocation: [],
         listActivity: [],
-        isUpcoming: false,
-        isSaved: false,
+        // isUpcoming: false,
+        // isSaved: false,
+        isOwn: false,
+        isJoined: false,
+        isFavorite: false,
         pageSize: 4,
         onPage: 1,
     });
@@ -30,7 +43,6 @@ const MainPage = () => {
 
     useEffect(() => {
         // console.log('Main Effect');
-        setThisUser(LOCATION.state);
         // console.log('Location state This User:! ', LOCATION.state);
         // 这个 ThisUser 只能从 Login 或 Register 成功后，才会 set 这个 location
         // 所以，如果没有 login，直接跳到这个 /main 的 URL，ThisUser 是 null。
@@ -38,15 +50,39 @@ const MainPage = () => {
         if (ThisUser == null) {
             throw 'user undefined !';
         }
-        console.log('filter opt ', filterOption.current);
+        // console.log('filter opt ', filterOption.current);
+        init();
+
+        return () => {
+            // console.log('Main Page un mounting');
+        };
+    }, []);
+
+    async function init() {
+        if (LOCATION.state == null || LOCATION.state.username == null) {
+            // console.log('dont know who logged in');
+            navigate('/login');
+            return;
+        }
+        setThisUser(LOCATION.state);
+        try {
+            let result = await axios({
+                method: 'post',
+                url: '/api/checktoken',
+            });
+            // console.log('result', result);
+            if (result.status !== 200) {
+                navigate('/login');
+                return;
+            }
+        } catch (err) {
+            navigate('/login');
+            return;
+        }
         loadUser(LOCATION.state.username);
         loadPosts();
         loadLocation();
-
-        return () => {
-            console.log('Main Page un mounting');
-        };
-    }, []);
+    }
 
     function loadUser(username) {
         axios({
@@ -54,7 +90,7 @@ const MainPage = () => {
             url: '/api/getuser',
             params: { username },
         }).then((e) => {
-            console.log('Init This User:! ', LOCATION.state);
+            // console.log('reload This User:! ', e.data);
             setThisUser(e.data);
         });
     }
@@ -79,7 +115,10 @@ const MainPage = () => {
                 // console.log('End load post ');
             })
             .catch((e) => {
-                console.log('catch load err ', e, e.response);
+                // console.log('catch load err ', e, e.response);
+                if (e.response.data.error === 'TokenExpiredError') {
+                    navigate('/login');
+                }
             });
     }
     function loadLocation() {

@@ -53,10 +53,12 @@ const MainMap = ({ lat, long, zoom, AllLocation, PageData, toOpenModal }) => {
             let loc = AllLocation.find((ll) => ll.locname === e.locname);
             // let pos = { lat: loc.lat, lng: loc.long };
             let pos = {
-                lat: defaultLat + idx * 0.001,
-                lng: defaultLon + idx * 0.001,
+                // lat: defaultLat + idx * 0.001,
+                // lng: defaultLon + idx * 0.001,
+                lat: e.lat,
+                lng: e.long,
             };
-            console.log('render pos: ', pos);
+            // console.log('render pos: ', pos);
             let click = () => {
                 toOpenModal(idx);
             };

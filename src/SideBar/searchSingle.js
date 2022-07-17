@@ -25,12 +25,12 @@ const SearchSingle = ({ optionData, thisvalue }) => {
     useEffect(() => {}, []);
 
     let handleSelect = (e) => {
-        console.log('handle select ', e);
+        // console.log('handle select ', e);
         thisvalue.current = e;
     };
 
     let onfocus = () => {
-        console.log('on focus');
+        // console.log('on focus');
     };
 
     return (

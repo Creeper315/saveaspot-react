@@ -149,41 +149,40 @@ const PostModalOwn = ({
                     <FormGroup>
                         <Label>Location</Label>
                         <Input
-                            value={locname}
+                            value={locname || ''}
                             onChange={(e) => setlocname(e.target.value)}
                         />
                     </FormGroup>
                     <FormGroup>
                         <Label>Time</Label>
                         <Input
-                            value={time}
+                            value={time || ''}
                             onChange={(e) => settime(e.target.value)}
                         />
                     </FormGroup>
                     <FormGroup>
                         <Label>Description</Label>
                         <Input
-                            value={description}
+                            value={description || ''}
                             onChange={(e) => setdescription(e.target.value)}
                         />
                     </FormGroup>
                     <FormGroup>
                         <Label>Email</Label>
                         <Input
-                            value={email}
+                            value={email || ''}
                             onChange={(e) => setemail(e.target.value)}
                         />
                     </FormGroup>
                     <FormGroup>
                         <Label>Phone</Label>
                         <Input
-                            value={phone}
+                            value={phone || ''}
                             onChange={(e) => setphone(e.target.value)}
                         />
                     </FormGroup>
                 </Form>
-                <img src={p.locp} alt={'location '}></img>
-                <img src={p.postp} alt={'seat detail '}></img>
+                {/* <img src={p.locp} alt={'location '}></img> */}
             </ModalBody>
             {/* <ModalFooter>
                 {

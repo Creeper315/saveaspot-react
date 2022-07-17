@@ -36,8 +36,12 @@ const TopNav = ({
                 filterOption={filterOption}
                 AllLocation={AllLocation}
             />
-            <div id="nav-map" onClick={() => setMapViewOpen(!MapViewOpen)}>
-                <GrMap fontSize={'20px'} fontWeight={'bold'} />
+            <div
+                id="nav-map"
+                onClick={() => setMapViewOpen(!MapViewOpen)}
+                className={MapViewOpen ? 'is-active' : ''}
+            >
+                <GrMap fontSize={'20px'} fontWeight={'bold'} color="white" />
             </div>
             {/* <button
                 id="topnav-view-map-btn"

@@ -1,7 +1,11 @@
 import { useEffect, useRef, useState } from 'react';
 import { Transition } from 'react-transition-group';
+import axios from 'axios';
 
-const LoginRight = ({ name, password, isLogin, onsubmit }) => {
+const clientId =
+    '1016702716489-u2fjc3us998nqb1mt8c01uglpt42dshl.apps.googleusercontent.com';
+
+const LoginRight = ({ name, password, isLogin, onsubmit, googleSubmit }) => {
     const [ShowHr, setShowHr] = useState(false);
     const [ForceRender, setForceRender] = useState(1);
     const [SubmitLabel, setSubmitLabel] = useState(
@@ -12,6 +16,22 @@ const LoginRight = ({ name, password, isLogin, onsubmit }) => {
     const defaultStyle = useRef({});
     const btnLeft = useRef();
     const btnRight = useRef();
+
+    useEffect(() => {
+        let k = 0;
+
+        /* global google */
+
+        google.accounts.id.initialize({
+            client_id: clientId,
+            callback: googleSubmit,
+        });
+        google.accounts.id.renderButton(document.getElementById('signInDiv'), {
+            theme: 'outline',
+            size: 'large',
+        });
+    }, []);
+
     // console.log('haha ', btnLeft.current.clientWidth);  <-- Throws undefined error !
     // 注意！这个 Button 的 clientWidth, 需要在 useEffect 里面才能拿到
     //  ！因为在 page 刚刚 render 的时候， btnLeft 这个值还没被设定好
@@ -94,6 +114,7 @@ const LoginRight = ({ name, password, isLogin, onsubmit }) => {
                     >
                         <span>{SubmitLabel}</span>
                     </div>
+                    <div id="signInDiv"></div>
                 </div>
             </div>
         </div>

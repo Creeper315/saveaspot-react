@@ -20,6 +20,7 @@
     border: 1px solid red;
     grid-column: 1;
     grid-row: 2 / -1;
+    min-height: 0;
 }
 .grid-bx-3 {
     border: 1px solid blue;

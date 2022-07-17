@@ -7,11 +7,15 @@ import a from '../img/lin.jpg';
 const Option = (props) => {
     // console.log('what is props ', props);
     return (
-        <div>
+        <div
+            className="lop"
+            style={{ '--bg-image': `url(${props.data.locpic})` }}
+        >
             <components.Option {...props} className="location-option">
-                {/* <img src={a} alt="nothing" /> */}
+                {/* <img src={props.data.locpic} alt="nothing" /> */}
                 <input
                     type="checkbox"
+                    data-att="333"
                     checked={props.isSelected}
                     onChange={() => null}
                 />{' '}
@@ -25,19 +29,23 @@ const SearchLocation = ({ loadPosts, filterOption, AllLocation }) => {
     const [Selected, setSelected] = useState('');
 
     let onMenuClose = () => {
-        filterOption.current.isUpcoming = false;
-        filterOption.current.isSaved = false;
-        loadPosts();
+        // filterOption.current.isUpcoming = false;
+        // filterOption.current.isSaved = false;
+        // loadPosts();
     };
 
     let handleChange = (list) => {
-        console.log('changed ', list);
+        // console.log('loc changed ', list);
 
         setSelected(list);
 
         filterOption.current.listLocation = list.map((e) => {
             return e.locname;
         });
+
+        filterOption.current.isUpcoming = false;
+        filterOption.current.isSaved = false;
+        loadPosts();
     };
 
     return (

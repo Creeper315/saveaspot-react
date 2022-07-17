@@ -9,14 +9,16 @@ const EditContactForm = ({
     EditModalOpen,
     toggleEdit,
 }) => {
-    const email = useRef(ThisUser.email || '');
-    const phone = useRef(ThisUser.phone || '');
+    // const email = useRef(ThisUser.email || '');
+    // const phone = useRef(ThisUser.phone || '');
+    const [Email, setEmail] = useState(ThisUser.email || '');
+    const [Phone, setPhone] = useState(ThisUser.phone || '');
 
     function saveEdit() {
         let newObj = {
             ...ThisUser,
-            email: email.current,
-            phone: phone.current,
+            email: Email,
+            phone: Phone,
         };
         axios({
             method: 'post',
@@ -30,7 +32,6 @@ const EditContactForm = ({
             })
             .catch((e) => {
                 alert('Error, update failed ');
-                console.log(e);
                 // Failed
             });
     }
@@ -45,9 +46,9 @@ const EditContactForm = ({
                     <FormGroup>
                         <Label>Email</Label>
                         <Input
-                            value={email.current}
+                            value={Email}
                             onChange={(e) => {
-                                email.current = e.target.value;
+                                setEmail(e.target.value);
                             }}
                         />
                     </FormGroup>
@@ -55,9 +56,9 @@ const EditContactForm = ({
                     <FormGroup>
                         <Label>Phone</Label>
                         <Input
-                            value={phone.current}
+                            value={Phone}
                             onChange={(e) => {
-                                phone.current = e.target.value;
+                                setPhone(e.target.value);
                             }}
                         />
                     </FormGroup>

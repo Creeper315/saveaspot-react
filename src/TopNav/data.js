@@ -9,5 +9,5 @@ const activities = [
     { value: 'gaming', label: 'Gaming' },
     { value: 'others', label: 'Others' },
 ];
-
+// window.aaa = activities;
 module.exports = { activities };

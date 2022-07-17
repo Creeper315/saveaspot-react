@@ -2,6 +2,7 @@ import '../css/pagination.css';
 import { useEffect, useRef, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { setPage } from '../Redux/Reducer/postReducer';
+import { Button } from 'reactstrap';
 
 const Pagination = ({
     loadPosts,
@@ -50,12 +51,12 @@ const Pagination = ({
 
     return (
         <div className="pagination-main">
-            <button
+            <Button
                 className="page-left"
                 onClick={() => goToPage(CurrentPage - 1)}
             >
                 Left
-            </button>
+            </Button>
             <input
                 className="page-input"
                 ref={inputRef}
@@ -74,12 +75,12 @@ const Pagination = ({
                     setDisplayPage(CurrentPage);
                 }}
             />
-            <button
+            <Button
                 className="page-right"
                 onClick={() => goToPage(CurrentPage + 1)}
             >
                 Right
-            </button>
+            </Button>
             <div className="page-number">{CurrentPage + '/' + TotalPage}</div>
         </div>
     );

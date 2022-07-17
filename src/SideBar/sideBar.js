@@ -12,6 +12,7 @@ import axios from 'axios';
 import { MdEmail } from 'react-icons/md';
 import { BsFillTelephoneFill } from 'react-icons/bs';
 import { ImCross } from 'react-icons/im';
+import { useCookies } from 'react-cookie';
 
 // import $ from 'jquery';
 
@@ -29,6 +30,8 @@ const SideBar = ({
     // picture: 'https://www.google.com.hk/imgres?imgurl=https%3A%2F%2Fcdnb.artstation.com%2Fp%2Fassets%2Fcovers%2Fimages%2F016%2F220%2F089%2Flarge%2Fsupercell-art-spike-thumb.jpg%3F1551358928&imgrefurl=https%3A%2F%2Fwww.artstation.com%2Fartwork%2FW2GD82&tbnid=R9KbQs_huMiquM&vet=12ahUKEwibspSazJT3AhWTTPUHHc4KAFoQMygeegUIARCGAg..i&docid=UAXZCY8Nc8N0wM&w=400&h=400&q=brawl%20tar%20spike&ved=2ahUKEwibspSazJT3AhWTTPUHHc4KAFoQMygeegUIARCGAg';
     // console.log('Side Bar Refresh');
     const navigate = useNavigate();
+    const [cookies, setCookie, removeCookie] = useCookies();
+
     const [EditModalOpen, setEditModalOpen] = useState(false);
     const [CreateModalOpen, setCreateModalOpen] = useState(false);
 
@@ -43,30 +46,59 @@ const SideBar = ({
     }, []);
 
     function handleLogOut() {
-        navigate('/login');
-    } //map: AIzaSyD-F9PkcMOHcDp5Zht0WTEP20tWLj0BDAk
+        // removeCookie('ACCESS_TOKEN');
+        // removeCookie('REFRESH_TOKEN');
+        if (!window.confirm('Sure to logout?')) return;
 
-    function clickUpcoming() {
-        if (filterOption.current.isUpcoming === true) {
-            filterOption.current.isUpcoming = false;
-            loadPosts();
-            return;
-        }
-        filterOption.current.isUpcoming = true;
-        filterOption.current.isSaved = false;
+        axios({ method: 'post', url: '/api/logout' }).then((e) => {
+            if (e.status === 200) {
+                navigate('/login');
+            }
+        });
+        // navigate('/login');
+    }
+    //map: AIzaSyD-F9PkcMOHcDp5Zht0WTEP20tWLj0BDAk
+
+    // function clickUpcoming() {
+    //     if (filterOption.current.isUpcoming === true) {
+    //         filterOption.current.isUpcoming = false;
+    //         loadPosts();
+    //         return;
+    //     }
+    //     filterOption.current.isUpcoming = true;
+    //     filterOption.current.isSaved = false;
+    //     loadPosts();
+    // }
+
+    function clickOwn() {
+        filterOption.current.isOwn = !filterOption.current.isOwn;
+        filterOption.current.isJoined = false;
+        filterOption.current.isFavorite = false;
+        loadPosts();
+    }
+    function clickJoined() {
+        filterOption.current.isJoined = !filterOption.current.isJoined;
+        filterOption.current.isOwn = false;
+        filterOption.current.isFavorite = false;
+        loadPosts();
+    }
+    function clickFavorite() {
+        filterOption.current.isFavorite = !filterOption.current.isFavorite;
+        filterOption.current.isJoined = false;
+        filterOption.current.isOwn = false;
         loadPosts();
     }
 
-    function clickSaved() {
-        if (filterOption.current.isSaved === true) {
-            filterOption.current.isSaved = false;
-            loadPosts();
-            return;
-        }
-        filterOption.current.isSaved = true;
-        filterOption.current.isUpcoming = false;
-        loadPosts();
-    }
+    // function clickSaved() {
+    //     if (filterOption.current.isSaved === true) {
+    //         filterOption.current.isSaved = false;
+    //         loadPosts();
+    //         return;
+    //     }
+    //     filterOption.current.isSaved = true;
+    //     filterOption.current.isUpcoming = false;
+    //     loadPosts();
+    // }
 
     return (
         <div id="side-bar">
@@ -84,28 +116,33 @@ const SideBar = ({
                     CONTACT INFO
                 </p>
                 <div className="contact-line">
-                    <MdEmail
-                        style={{ marginLeft: '15px', marginRight: '15px' }}
-                    />
+                    <div>
+                        <MdEmail />
+                    </div>
                     <span>{ThisUser.email || ''}</span>
                 </div>
                 <div className="contact-line">
-                    <BsFillTelephoneFill
-                        style={{ marginLeft: '15px', marginRight: '15px' }}
-                    />
+                    <div>
+                        <BsFillTelephoneFill />
+                    </div>
+
                     <span>{ThisUser.phone || ''}</span>
                 </div>
             </div>
-
             <SideButton
-                text="View Upcoming Event"
-                activeFun={clickUpcoming}
-                isActive={filterOption.current.isUpcoming}
+                text="Your Events"
+                activeFun={clickOwn}
+                isActive={filterOption.current.isOwn}
             />
             <SideButton
-                text="View Saved Event"
-                activeFun={clickSaved}
-                isActive={filterOption.current.isSaved}
+                text="Joined Events"
+                activeFun={clickJoined}
+                isActive={filterOption.current.isJoined}
+            />
+            <SideButton
+                text="Favorite Events"
+                activeFun={clickFavorite}
+                isActive={filterOption.current.isFavorite}
             />
 
             {/* <div className="test-div">

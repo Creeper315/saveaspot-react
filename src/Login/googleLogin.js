@@ -18,7 +18,7 @@ class GoogleLoginComponent extends Component {
 
     // Success Handler
     responseGoogleSuccess = (response) => {
-        console.log('Success', response);
+        // console.log('Success', response);
         let userInfo = {
             name: response.profileObj.name,
             emailId: response.profileObj.email,
@@ -28,12 +28,12 @@ class GoogleLoginComponent extends Component {
 
     // Error Handler
     responseGoogleError = (response) => {
-        console.log('err', response);
+        // console.log('err', response);
     };
 
     // Logout Session and Update State
     logout = (response) => {
-        console.log('logout', response);
+        // console.log('logout', response);
         let userInfo = {
             name: '',
             emailId: '',
