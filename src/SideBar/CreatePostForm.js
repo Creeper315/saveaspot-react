@@ -51,10 +51,18 @@ const CreatePostForm = ({
                 Create Your Activity Post!
             </ModalHeader>
             <ModalBody>
-                <SearchSingle optionData={AllLocation} thisvalue={location} />
-                <SearchSingle optionData={activities} thisvalue={activity} />
+                <SearchSingle
+                    optionData={AllLocation}
+                    thisvalue={location}
+                    isLocation={true}
+                />
+                <SearchSingle
+                    optionData={activities}
+                    thisvalue={activity}
+                    isLocation={false}
+                />
                 <FormGroup>
-                    <Label>Time</Label>
+                    <Label style={{ fontWeight: 'bold' }}>Time</Label>
                     <Input
                         // value={email.current}
                         onChange={(e) => {
@@ -64,7 +72,7 @@ const CreatePostForm = ({
                 </FormGroup>
 
                 <FormGroup>
-                    <Label>Description</Label>
+                    <Label style={{ fontWeight: 'bold' }}>Description</Label>
                     <Input
                         // value={email.current}
                         onChange={(e) => {
@@ -74,7 +82,7 @@ const CreatePostForm = ({
                 </FormGroup>
 
                 <FormGroup>
-                    <Label>Max People</Label>
+                    <Label style={{ fontWeight: 'bold' }}>Max Joiners</Label>
                     <Input
                         // value={email.current}
                         onChange={(e) => {

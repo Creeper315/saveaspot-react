@@ -25,39 +25,36 @@ const OnePost = ({
                 toOpenModal(kk);
             }}
         >
-            <div className="one-post-line">
-                <div>
-                    <MdPlace />
+            <div className="one-post-body">
+                <div className="one-post-title">
+                    <h4>{PageData[kk].locname}</h4>
                 </div>
-                <span>{PageData[kk].locname}</span>
-            </div>
-            <div className="one-post-line">
-                <div>
-                    <BsFillPersonLinesFill />
+                <div className="one-post-body2">
+                    <div className="one-post-line">
+                        <div>
+                            <BsFillPersonLinesFill />
+                        </div>
+                        <span>{PageData[kk].username}</span>
+                    </div>
+                    <div className="one-post-line">
+                        <div>
+                            <FcSportsMode />
+                        </div>
+                        <span>{PageData[kk].activity}</span>
+                    </div>
+                    <div className="one-post-line">
+                        <div>
+                            <IoMdTime />
+                        </div>
+                        <span>{PageData[kk].time}</span>
+                    </div>
                 </div>
-                <span>{PageData[kk].username}</span>
-            </div>
-            <div className="one-post-line">
-                <div>
-                    <FcSportsMode />
-                </div>
-
-                <span>{PageData[kk].activity}</span>
-            </div>
-            <div className="one-post-line">
-                <div>
-                    <IoMdTime />
-                </div>
-
-                <span>{PageData[kk].time}</span>
-            </div>
-            <div className="one-post-line">
-                <span>
-                    {'Joiners: ' +
-                        PageData[kk].curppl +
-                        ' / ' +
-                        PageData[kk].maxppl}
-                </span>
+                <p>
+                    {PageData[kk].curppl +
+                        '/' +
+                        PageData[kk].maxppl +
+                        ' Joiners'}
+                </p>
             </div>
         </div>
     );

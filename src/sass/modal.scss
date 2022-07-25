@@ -4,9 +4,12 @@
     display: flex;
     flex-direction: column;
     align-items: center;
+    margin-top: 10px;
 
     img{
-        border-radius: 25%;
+        border-radius: 15px;
+        object-fit: cover;
+        object-position: center center;
     }
 
     h4{

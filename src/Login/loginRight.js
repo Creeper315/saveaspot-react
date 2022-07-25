@@ -5,7 +5,15 @@ import axios from 'axios';
 const clientId =
     '1016702716489-u2fjc3us998nqb1mt8c01uglpt42dshl.apps.googleusercontent.com';
 
-const LoginRight = ({ name, password, isLogin, onsubmit, googleSubmit }) => {
+const LoginRight = ({
+    name,
+    password,
+    isLogin,
+    ErrorMsg,
+    setErrorMsg,
+    onsubmit,
+    googleSubmit,
+}) => {
     const [ShowHr, setShowHr] = useState(false);
     const [ForceRender, setForceRender] = useState(1);
     const [SubmitLabel, setSubmitLabel] = useState(
@@ -18,8 +26,6 @@ const LoginRight = ({ name, password, isLogin, onsubmit, googleSubmit }) => {
     const btnRight = useRef();
 
     useEffect(() => {
-        let k = 0;
-
         /* global google */
 
         google.accounts.id.initialize({
@@ -56,12 +62,17 @@ const LoginRight = ({ name, password, isLogin, onsubmit, googleSubmit }) => {
 
     return (
         <div className="login-right">
+            {/* <div id="login-form-blur"></div> */}
             <div id="login-form-contain">
                 <div id="login-form">
                     <div id="login-upper">
                         <div id="signin-contain">
                             <span
-                                className="signin-signup"
+                                className={
+                                    isLogin.current
+                                        ? 'signin-signup is-active'
+                                        : 'signin-signup'
+                                }
                                 ref={btnLeft}
                                 onClick={() => {
                                     tg(false);
@@ -69,10 +80,14 @@ const LoginRight = ({ name, password, isLogin, onsubmit, googleSubmit }) => {
                                     isLogin.current = true;
                                 }}
                             >
-                                SIGN IN
+                                Sign In
                             </span>
                             <span
-                                className="signin-signup"
+                                className={
+                                    isLogin.current
+                                        ? 'signin-signup'
+                                        : 'signin-signup is-active'
+                                }
                                 ref={btnRight}
                                 onClick={() => {
                                     tg(true);
@@ -80,7 +95,7 @@ const LoginRight = ({ name, password, isLogin, onsubmit, googleSubmit }) => {
                                     isLogin.current = false;
                                 }}
                             >
-                                SIGN UP
+                                Sign Up
                             </span>
                         </div>
                         <Transition in={ShowHr} timeout={0}>
@@ -95,23 +110,30 @@ const LoginRight = ({ name, password, isLogin, onsubmit, googleSubmit }) => {
                             )}
                         </Transition>
                     </div>
-                    <div className="login-label">USERNAME</div>
+                    <div className="login-label">Username</div>
                     <input
                         className="login-shape login-input"
-                        onChange={(e) => (name.current = e.target.value)}
+                        onChange={(e) => {
+                            name.current = e.target.value;
+                            setErrorMsg('');
+                        }}
                     />
 
-                    <div className="login-label">PASSWORD</div>
+                    <div className="login-label">Password</div>
                     <input
                         className="login-shape login-input"
-                        onChange={(e) => (password.current = e.target.value)}
+                        onChange={(e) => {
+                            password.current = e.target.value;
+                            setErrorMsg('');
+                        }}
                     />
-
                     <div
                         id="login-submit"
                         className="login-shape"
                         onClick={onsubmit}
                     >
+                        <div id="login-err">{ErrorMsg}</div>
+
                         <span>{SubmitLabel}</span>
                     </div>
                     <div id="signInDiv"></div>

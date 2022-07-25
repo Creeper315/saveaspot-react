@@ -8,7 +8,7 @@ const Option = (props) => {
     // console.log('what is props ', props);
     return (
         <div
-            className="lop"
+            className="lo-contain"
             style={{ '--bg-image': `url(${props.data.locpic})` }}
         >
             <components.Option {...props} className="location-option">
@@ -49,6 +49,7 @@ const SearchLocation = ({ loadPosts, filterOption, AllLocation }) => {
     };
 
     return (
+        // <div style={{ '--is-location': 1 }}>
         <ReactSelect
             className="multi-select"
             options={AllLocation}
@@ -63,12 +64,13 @@ const SearchLocation = ({ loadPosts, filterOption, AllLocation }) => {
             allowSelectAll={true}
             value={Selected}
             onMenuClose={onMenuClose}
-            noOptionsMessage={() => "you're beautiful"}
-            placeholder="Search By Location.."
+            noOptionsMessage={() => 'No Results Found...'}
+            placeholder="Filter search location:"
             onFocus={(e) => {
                 // console.log('on fcs ', e);
             }}
         />
+        // </div>
     );
 };
 

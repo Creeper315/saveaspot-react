@@ -62,7 +62,8 @@ const SearchActivity = ({ loadPosts, filterOption }) => {
             value={Selected}
             onChange={handleChange}
             onMenuClose={onMenuClose}
-            noOptionsMessage={() => "you're beautiful"}
+            // menuIsOpen={true}
+            noOptionsMessage={() => 'No Results Found'}
             onFocus={(e) => {
                 // console.log('on fcs ', e);
             }}
@@ -73,7 +74,7 @@ const SearchActivity = ({ loadPosts, filterOption }) => {
             closeMenuOnSelect={false}
             hideSelectedOptions={false}
             allowSelectAll={true}
-            placeholder="Search By Event Type.."
+            placeholder="Filter search event:"
         />
     );
 };

@@ -1,65 +1,67 @@
-.location-option {
-    // background-image: url(../img/lin.jpg);
-    // border: 2px dashed burlywood;
-    // border-style: groove;
-    // height: 90px;
-}
 
-.multi-select .css-g1d714-ValueContainer {
+// .multi-select .css-g1d714-ValueContainer {
+//     flex-wrap: nowrap;
+//     overflow: scroll;
+//     // height: 90px;
+// }
+.multi-select > div:first-of-type > div:first-of-type{
     flex-wrap: nowrap;
     overflow: scroll;
+    white-space: nowrap;
+
+    div {
+        flex-shrink: 0;
+    }
 }
 
-.css-g1d714-ValueContainer div {
-    flex-shrink: 0;
-}
-
-.lop div:first-child{
+.lo-contain div:first-child{
     background-image: var(--bg-image);
 }
 
-.css-4ljt47-MenuList  {
-    padding: 0px;
+// .css-9gakcf-option {
+//     background-color: none;
+// }
 
-    .location-option{
-        display: flex;
-        gap: 6px;
-        align-items: center;
-        cursor: pointer;
-        border: 2px dashed burlywood;
-        border-style: groove;
 
-        background-size: cover;
-        background-position: center 75%;
-        // background-image: url(../img/lin.jpg);
-        background-color: none;
-        
-        height: 90px;
-        label{
-            // align-self: flex-end;
-            font-weight: bold;
-            font-size: large;
-            color: white;
-            text-shadow: 1px 1px 2px black;
-            z-index: 1;
-        }
-        input{
-            z-index: 1;
-        }
-        img{
-            z-index: 0;
-            // width: 100%;
-            position: absolute;
-            border: 2px dashed;
-            object-fit: cover;
-            object-position: center center;
-        }
+.multi-select:nth-of-type(1) [id^="react-select-"][id$="-listbox"] .location-option {
+    display: flex;
+    gap: 6px;
+    align-items: center;
+    cursor: pointer;
+    border: 2px ridge burlywood;
+
+    background-size: cover;
+    background-position: center 75%;
+    // background-image: url(../img/lin.jpg);
+    background-color: none;
+
+    height: 90px;
+
+    label {
+        // align-self: flex-end;
+        font-weight: bold;
+        font-size: large;
+        color: white;
+        text-shadow: 1px 1px 2px black;
+        z-index: 1;
     }
 
-    .css-9gakcf-option{
-        background-color: none;
+    input {
+        z-index: 1;
     }
-    
+
+    img {
+        z-index: 0;
+        // width: 100%;
+        position: absolute;
+        border: 2px dashed;
+        object-fit: cover;
+        object-position: center center;
+    }
+}
+
+.multi-select:nth-of-type(3) [id^="react-select-"][id$="-listbox"] .location-option {
+    border: 2px ridge rgb(208, 248, 255);
 }
 
 #nav-map{

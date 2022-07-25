@@ -29,7 +29,7 @@ const MainPage = () => {
         isOwn: false,
         isJoined: false,
         isFavorite: false,
-        pageSize: 4,
+        pageSize: 8,
         onPage: 1,
     });
 
@@ -43,18 +43,18 @@ const MainPage = () => {
 
     useEffect(() => {
         // console.log('Main Effect');
-        // console.log('Location state This User:! ', LOCATION.state);
+        console.log('Location state This User:! ', LOCATION.state);
         // 这个 ThisUser 只能从 Login 或 Register 成功后，才会 set 这个 location
         // 所以，如果没有 login，直接跳到这个 /main 的 URL，ThisUser 是 null。
         // 所以需要回 Login 重新登录
         if (ThisUser == null) {
             throw 'user undefined !';
         }
-        // console.log('filter opt ', filterOption.current);
+        console.log('filter opt ', filterOption.current);
         init();
 
         return () => {
-            // console.log('Main Page un mounting');
+            console.log('Main Page un mounting');
         };
     }, []);
 
@@ -90,7 +90,7 @@ const MainPage = () => {
             url: '/api/getuser',
             params: { username },
         }).then((e) => {
-            // console.log('reload This User:! ', e.data);
+            console.log('reload This User:! ', e.data);
             setThisUser(e.data);
         });
     }
@@ -103,8 +103,9 @@ const MainPage = () => {
             data: filterOption.current,
         })
             .then((e) => {
-                // console.log('load then');
                 let listP = e.data.pageData;
+                console.log('load then', listP);
+
                 // listP = listP.map((e) => {
                 //     return { ...e, btn: 'Join' };
                 // });

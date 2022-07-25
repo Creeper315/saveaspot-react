@@ -11,15 +11,8 @@
     font-size: 3rem;
 }
 
-.login-contain{
-    width: '100vw';
-    height: '100vh';
-    display: 'flex';
-    align-content: center;
-    justify-content: center;
-}
-
 .login-main{
+    user-select: none;
     width: 100vw;
     height: 100vh;
     display: grid;
@@ -30,27 +23,81 @@
 
 .login-left{
     position: relative;
-    
+    min-width: 370px;
     border: 1px solid orange;
     background-color: #e2ffe1;
 }
+#login-tech{
+    margin: 15px 0;
+    text-align: center;
+    word-spacing: 1rem;
+    font-size: 0.9rem;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+}
+
 #login-left-foot{
+    display: block;
     position: absolute;
+    border: 2px;
+    /* user-select: none; */
+    background-color: white;
+    border-style: ridge;
+    padding: 2px 8px;
     bottom: 2%;
-    left: 15%;
+    left: 50%;
+    transform: translateX(-50%);
     font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
-    color: rgb(75, 193, 239);
+    font-size: large;
+    color: rgb(63, 120, 213);
+    white-space: nowrap;
+
+    box-shadow: 0 3px 50px -9px black;
+}
+
+#login-contact{
+    position: absolute;
+    bottom: 0.5%;
+    border: 1px solid;
+    min-width: 300px;
+    width: 100%;
+
+    display: flex;
+    justify-content: space-around;
+}
+
+#login-contact span{
+    color: red;
+    font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif;
+    font-size: 0.8rem;
+    font-weight: bold;
+    text-shadow: 1px 0 1px white;
 }
 
 #login-left-title{
+
     font-family: 'myFont1';
+    font-weight: bold;
+    text-align: center;
+    /* border: 1px solid; */
+    margin-top: 15px;
+    margin-bottom: 15px;
+    /* margin-left: 10px; */
+}
+
+.login-left-para{
+    font-family: "Comic Sans MS", cursive, sans-serif;
+    margin-bottom: 3px;
+    color: rgb(0, 119, 255);
+    text-indent: 30px;
+    padding: 0 30px;
+    line-height: 1.8rem;
 }
 
 #party-svg{
     position: absolute;
-    /* border: 1px dotted blue; */
     width: 100%;
-    top: 30%;
+    bottom: 10%;
+    background-color: rgb(241, 143, 101);
 }
 
 #tree-svg{
@@ -61,25 +108,59 @@
 }
 
 .login-right{
-    border: 1px solid green;
-    background-image: url('../img/campus.jpeg');
-
+    position: relative;
+    background-image: url('../img/UBC_bk.jpeg');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: left bottom;
     display: flex;
     justify-content: center;
     align-items: center;
 }
 
 #login-form-contain{
+    position: relative;
     width: 443px;
     height: 575px;
+    margin: 0;
     /* border: 1px solid red; */
-    border-radius: 5px;
-    box-shadow: inset 1px 19px 42px -7px rgba(0, 0, 0, 0.73);
+    --br: 5px;
+    border-radius: var(--br);
+    box-shadow: inset 1px 19px 42px -10px rgba(0, 0, 0, 0.73);
     padding: 80px 70px 50px;
     
     display: flex;
     flex-direction: column;
     align-items: center;
+    overflow: hidden;
+}
+
+#login-form-contain::after{
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url('../img/UBC_bk.jpeg');
+    background-size: cover;
+    background-position: 17% center;
+    filter: blur(5px);
+    z-index: 0;
+}
+
+#login-form-blur{
+    position: absolute;
+    width: 443px;
+    height: 575px;
+    /* border: 1px solid red; */
+    border-radius: var(--br);
+    background-image: url('../img/UBC_bk.jpeg');
+    background-size: cover;
+    background-position: 25% center;
+    filter: blur(3px);
+    overflow: hidden;
+    z-index: 0;
 }
 
 #login-form{
@@ -87,6 +168,8 @@
     /* border: 1px solid red; */
     width: 100%;
     height: 100%;
+    z-index: 1;
+
 }
 
 #login-upper{
@@ -104,22 +187,34 @@
 }
 
 .signin-signup{
-    /* display: inline-block; */
-    /* height: 40px; */
     cursor: pointer;
     color: white;
     padding-bottom: 0px;
+    text-shadow: 1px 1px 2px black;
     font-weight: 900;
+    font-size: 1.3rem;
+    letter-spacing: 0.1rem;
     
     vertical-align: middle;
     line-height: 1rem;
+
+    --shadow1: white;
+    --shadow2: rgb(23, 156, 209);
+
+    transition: text-shadow 200ms ease;
+    text-shadow: 0 0 1px black；
+}
+.signin-signup.is-active{
+    text-shadow: 0 0 1px var(--shadow1), 0 0 15px var(--shadow2), 0 0 25px var(--shadow2), 0 0 40px var(--shadow2);
 }
 
 #signin-hr{
     position: relative;
+    top: 6px;
     width: 10px;
-    border: 1px solid blue;
-    transform: translateX(-2px);
+    border: 2px solid rgb(89, 27, 175);
+    transform: translateX(-2px) scaleX(1.2);
+    box-shadow: 0 1px 5px 0px white;
 }
 
 .login-shape {
@@ -134,10 +229,12 @@
 
 .login-label{
     color: white;
-    font-size: 1rem;
+    font-size: 1.1rem;
     font-family: 'Courier New', Courier, monospace;
-    font-weight: 900;
-    line-height: 1.5rem;
+    font-weight: bold;
+    line-height: 1.4rem;
+    letter-spacing: 0.1rem;
+    text-shadow: 1px 1px 2px black;
 }
 
 .login-input{
@@ -146,8 +243,23 @@
     color: black;
     font-family: 'Courier New', Courier, monospace;
     font-weight:900;
-    margin-bottom: 15px;
+    margin-bottom: 18px;
     /* box-shadow: 0px 0px 1px 1px rgba(255, 255, 255, 0.45); */
+}
+
+#login-err{
+    position: absolute;
+    left: 50%;
+    bottom: 100%;
+    white-space: nowrap;
+    transform: translateX(-50%);
+    /* border: 1px dashed red; */
+    text-align: center;
+    color:red;
+    text-shadow: -6px 0 1rem white, -6px 0 1rem white,0px 0 1rem white,0px 0 1rem white,0px 0 1rem white,0px 0 1rem white,0px 0 1rem white,0px 0 1rem white, 6px 0 1rem white, 6px 0 1rem white;
+
+    font-family: Arial, Helvetica, sans-serif;
+    font-weight: normal;
 }
 
 #login-submit{
@@ -156,7 +268,7 @@
     text-align: center;
     color: white;
     font-family: 'Courier New', Courier, monospace;
-    margin-top: 45px;
+    margin-top: 58px;
     cursor: pointer;
     box-shadow: 0px 0px 2px 1px rgb(23, 156, 209);
 }
@@ -175,6 +287,6 @@
     position: absolute;
     border-radius: 5px;
     left: 50%;
-    transform: translateX(-50%) scale(0.9);
-    margin-top: 30px;
+    transform: translateX(-50%) scale(1);
+    margin-top: 40px;
 }

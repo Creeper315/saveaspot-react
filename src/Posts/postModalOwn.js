@@ -16,6 +16,7 @@ const PostModalOwn = ({
     toCloseModal,
     ActiveIdx,
     clickDelete,
+    ThisUser,
 }) => {
     const isOtherPost = false;
     const p = PageData[ActiveIdx];
@@ -33,15 +34,15 @@ const PostModalOwn = ({
     useEffect(() => {
         // get * from user where username = p.username
         // console.log('here !');
-        axios({
-            method: 'get',
-            url: '/api/getuser',
-            params: { username: p.username },
-        }).then((e) => {
-            // console.log('???', e.data);
-            setemail(e.data.email);
-            setphone(e.data.phone);
-        });
+        // axios({
+        //     method: 'get',
+        //     url: '/api/getuser',
+        //     params: { username: p.username },
+        // }).then((e) => {
+        //     // console.log('???', e.data);
+        //     setemail(e.data.email);
+        //     setphone(e.data.phone);
+        // });
     }, []);
 
     function toggleMap(bool) {
@@ -85,29 +86,6 @@ const PostModalOwn = ({
         });
     }
 
-    // function renderSaveEditButton() {
-    //     let click = () => {
-    //         axios({
-    //             method: 'post',
-    //             url: 'api/postedit',
-    //             data: newUpdateObj(),
-    //         }).then((e) => {
-    //             console.log('here we are', e.status);
-    //             if (e.status === 200) {
-    //                 // Also, modify PostData at ActiveIdx
-    //                 p.locname = locname;
-    //                 p.time = time;
-    //                 p.description = description;
-    //                 console.log('new p', p);
-    //                 PageData[ActiveIdx] = { ...p };
-    //                 setPageData([...PageData]);
-    //                 toCloseModal();
-    //             }
-    //         });
-    //     };
-    //     return <Button onClick={click}>Save</Button>;
-    // }
-
     return (
         <Modal isOpen={ModalOpen} toggle={toCloseModal}>
             <ModalSide
@@ -131,13 +109,27 @@ const PostModalOwn = ({
             /> */}
             {/* {!MapViewOpen && <SingleMap zoom={17} />} */}
             <ModalBody>
-                <img
-                    style={{ width: '100px', height: '100px' }}
-                    src={
-                        'https://www.gamehelper.top/wp-content/uploads/2020/06/spike-brawl-stars-guide.jpg'
-                    }
-                    alt={'user profile'}
-                ></img>
+                <div
+                    style={{
+                        width: '100%',
+                        textAlign: 'center',
+                        marginBottom: '10px',
+                    }}
+                >
+                    <img
+                        style={{
+                            width: '100px',
+                            height: '100px',
+                            borderRadius: '20px',
+                        }}
+                        src={
+                            ThisUser.userpic ||
+                            'https://www.gamehelper.top/wp-content/uploads/2020/06/spike-brawl-stars-guide.jpg'
+                        }
+                        alt={'user profile'}
+                    ></img>
+                </div>
+
                 <Form>
                     {/* <FormGroup>
                         <Label>Username</Label>
@@ -170,14 +162,18 @@ const PostModalOwn = ({
                     <FormGroup>
                         <Label>Email</Label>
                         <Input
-                            value={email || ''}
+                            readOnly
+                            // value={email || ''}
+                            value={ThisUser.email || '...'}
                             onChange={(e) => setemail(e.target.value)}
                         />
                     </FormGroup>
                     <FormGroup>
                         <Label>Phone</Label>
                         <Input
-                            value={phone || ''}
+                            readOnly
+                            // value={phone || ''}
+                            value={ThisUser.phone || '...'}
                             onChange={(e) => setphone(e.target.value)}
                         />
                     </FormGroup>

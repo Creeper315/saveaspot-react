@@ -21,7 +21,7 @@ const Option = (props) => {
     );
 };
 
-const SearchSingle = ({ optionData, thisvalue }) => {
+const SearchSingle = ({ optionData, thisvalue, isLocation }) => {
     useEffect(() => {}, []);
 
     let handleSelect = (e) => {
@@ -35,7 +35,7 @@ const SearchSingle = ({ optionData, thisvalue }) => {
 
     return (
         <ReactSelect
-            className="multi-select"
+            className="search-single"
             // value={Selected}
             onChange={handleSelect}
             options={optionData}
@@ -46,8 +46,10 @@ const SearchSingle = ({ optionData, thisvalue }) => {
             blurInputOnSelect={true}
             hideSelectedOptions={false}
             onFocus={onfocus}
-            placeholder="Search..."
-            noOptionsMessage={() => 'Type User Name to Search'}
+            placeholder={
+                isLocation ? 'Choose Location ...' : 'Choose Activity ...'
+            }
+            noOptionsMessage={() => 'No Results Found...'}
         />
     );
 };

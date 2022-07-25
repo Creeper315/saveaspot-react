@@ -23,7 +23,23 @@ const Posts = ({
 
     function renderPost() {
         if (PageData === undefined || PageData.length === 0) {
-            return null;
+            return (
+                <div
+                    style={{
+                        width: '100%',
+                        height: '100%',
+                        display: 'flex',
+                        justifyContent: 'center',
+                        alignItems: 'center',
+                        gridRow: '1 / -1',
+                        gridColumn: '1 / -1',
+                    }}
+                >
+                    <h3 style={{ margin: '20px', color: 'grey' }}>
+                        {'No Posts Found ...'}
+                    </h3>
+                </div>
+            );
         }
         return PageData.map((e, idx) => {
             return (
@@ -169,6 +185,7 @@ const Posts = ({
         if (PageData[ActiveIdx].username === ThisUser.username) {
             return (
                 <PostModalOwn
+                    ThisUser={ThisUser}
                     PageData={PageData}
                     setPageData={setPageData}
                     ModalOpen={ModalOpen}

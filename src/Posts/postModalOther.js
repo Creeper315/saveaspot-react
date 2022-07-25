@@ -25,6 +25,7 @@ const PostModalOther = ({
     const Lng = useRef(0);
     const [Email, setEmail] = useState('');
     const [Phone, setPhone] = useState('');
+    const [Profile, setProfile] = useState('');
 
     useEffect(() => {
         axios({
@@ -45,6 +46,10 @@ const PostModalOther = ({
                 // console.log('nm', e.data);
                 setEmail(e.data.email || '...');
                 setPhone(e.data.phone || '...');
+                setProfile(
+                    e.data.userpic ||
+                        'https://www.gamehelper.top/wp-content/uploads/2020/06/spike-brawl-stars-guide.jpg'
+                );
             }
         });
     }, []);
@@ -97,26 +102,11 @@ const PostModalOther = ({
             <div className="modal-profile">
                 <img
                     style={{ width: '100px', height: '100px' }}
-                    src={
-                        'https://www.gamehelper.top/wp-content/uploads/2020/06/spike-brawl-stars-guide.jpg'
-                    }
+                    src={Profile}
                     alt={'user profile'}
                 ></img>
                 <h4>{p.username}</h4>
             </div>
-            {/* <ModalBody>
-                <img
-                    style={{ width: '100px', height: '100px' }}
-                    src={
-                        'https://www.gamehelper.top/wp-content/uploads/2020/06/spike-brawl-stars-guide.jpg'
-                    }
-                    alt={'user profile'}
-                ></img>
-                <FormGroup>
-                    <Label>Username</Label>
-                    <Input value={p.username} readOnly />
-                </FormGroup>
-            </ModalBody> */}
             <ModalBody style={modalBodyStyle}>
                 <Form>
                     <FormGroup>

@@ -17,7 +17,7 @@
     align-items: center;
     min-height: 0;
     min-width: 0;
-    border: 2px solid orange;
+    /* border: 2px solid orange; */
     overflow: scroll;
 }
 
@@ -60,8 +60,8 @@
     white-space: nowrap;
 }
 
-#profile-icon img:hover{
-    box-shadow: 0 0 0 2px rgb(171, 81, 146);
+#profile-icon img{
+    box-shadow: 0 0 0 1px rgb(154, 89, 136);
 }
 
 .contact-line{
@@ -167,9 +167,9 @@
     justify-content: center;
     align-items: center;
 
-    border: 1px solid aqua;
+    border: 1px solid rgb(0, 128, 193);
     border-radius: 5px;
-    transition: all 50ms ease-out;
+    transition: all 90ms ease-out;
     box-shadow: 0 0 5px 2px;
 
     transition: background-color 200ms ease;
@@ -248,28 +248,39 @@
     margin-top: 20px;
     text-align: center;
     border-radius: 10px;
+    box-sizing: border-box;
+    cursor: pointer;
 
     display: flex;
     /* flex-direction: column; */
     justify-content: center;
     /* align-items: center; */
-    transition: all 200ms ease;
+    transition: background-color 100ms ease , box-shadow 150ms linear ;
+    box-shadow: -1px 1px 20px -5px;
 }
 #create-post:hover{
-    border-width: 2px;
+    /* border-width: 2px; */
+    background-color: rgb(127, 223, 255);
+    box-shadow: -1px 1px 13px -5px;
 }
+
+#create-post:hover #create-post-button{
+    background-color: rgb(206, 212, 217);
+}
+
 #create-post span{
     position: absolute;
     user-select: none;
     font-family: Cambria, Cochin, Georgia, Times, serif;
-    font-weight: 200;
+    font-weight: bold;
+    font-size: 1.3rem;
+    white-space: nowrap;
     top: 11%;
 }
 #create-post-button{
     cursor: pointer;
     position: absolute;
     bottom: 11%;
-    cursor: pointer;
     width: 55px;
     height: 55px;
     border-radius: 50%;
@@ -279,15 +290,13 @@
     justify-content: center;
     background-color: aliceblue;
 }
-#create-post-button:hover{
-    background-color: rgb(206, 212, 217);
-}
+
 #create-post-cross{
     transform: rotate(45deg) scale(1.1);
     color: orange;
     position: absolute;
     bottom: 20%;
-    transition: all 200ms ease-in-out;
+    transition: all 100ms ease-in-out;
 }
 #create-post:hover #create-post-cross{
     bottom: 50%;
@@ -326,4 +335,9 @@
 }
 .test-div:hover > button{
     background-color: green;
+}
+
+.search-single{
+    width: 100%;
+    margin-bottom: 15px;
 }

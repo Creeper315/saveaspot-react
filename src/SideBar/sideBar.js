@@ -52,7 +52,7 @@ const SideBar = ({
 
         axios({ method: 'post', url: '/api/logout' }).then((e) => {
             if (e.status === 200) {
-                navigate('/login');
+                navigate('/');
             }
         });
         // navigate('/login');
@@ -145,16 +145,9 @@ const SideBar = ({
                 isActive={filterOption.current.isFavorite}
             />
 
-            {/* <div className="test-div">
-                <button>hi</button>
-            </div>
-            <div className="test-div">
-                <button>hi2</button>
-            </div> */}
-
-            <div id="create-post">
+            <div id="create-post" onClick={toggleCreate}>
                 <span>Create Event Post</span>
-                <div id="create-post-button" onClick={toggleCreate}>
+                <div id="create-post-button">
                     <ImCross id="create-post-cross" />
                 </div>
             </div>
